@@ -1,9 +1,14 @@
 from flask import Flask
+from datetime import datetime, timedelta
 from flask_sqlalchemy import SQLAlchemy
 from models import db,User,Restaurant, Booking,Review
-from random import sample
+from random import sample, randint
+from faker import Faker
 
-from app import app
+app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
+db.init_app(app)
+fake=Faker()
 
 def seed_user():
     pass
