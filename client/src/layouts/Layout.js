@@ -13,7 +13,7 @@ const Layout = () => {
       {/* outlet */}
       <Outlet />
       {/* footer */}
-      <div className="w-full px-6 border-t border-t-zinc-300 absolute bottom-0 left-1/2 -translate-x-1/2">
+      <div className="w-full py-4 mt-8 bg-white px-6 border-t border-t-zinc-300 absolute bottom-0 left-1/2 -translate-x-1/2">
         <Foot />
       </div>
     </div>
