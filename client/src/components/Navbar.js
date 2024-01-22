@@ -8,7 +8,7 @@ export default function Nav() {
         </span>
       <Navbar.Toggle />
       <Navbar.Collapse>
-        <div className="flex flex-col md:flex-row gap-4 items-center">
+        <div className="flex px-4 flex-col md:flex-row gap-4 items-end md:items-center">
             <NavLink to='/'>Home</NavLink>
             <NavLink>Restaurants</NavLink>
             <NavLink to='/login'>Login</NavLink>
