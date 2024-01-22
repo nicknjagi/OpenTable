@@ -5,7 +5,7 @@ import Foot from '../components/Footer'
 
 const Layout = () => {
   return (
-    <div className="w-full max-w-[1240px] mx-auto">
+    <div className="relative min-h-[100dvh] w-full max-w-[1240px] mx-auto">
       <Nav />
       <Outlet />
       <Foot />
