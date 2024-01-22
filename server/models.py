@@ -10,9 +10,6 @@ class User(db.Model):
 class Restaurant(db.Model):
     pass
 
-class Table(db.Model):
-    pass
-
 class Booking(db.Model):
     pass
 
