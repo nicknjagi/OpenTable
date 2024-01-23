@@ -26,11 +26,41 @@ def get_user(id):
         return jsonify({"message": "User not found"}), 404
 
 #update user
-@user_bp.route("/users/edit", methods=['PUT'])
-def update_user():
-    pass
+@user_bp.route("/users/<int:id>", methods=['PUT'])
+# @jwt_required()
+def update_user(id):
+    # current_user_id= get_jwt_identity()
+    # if current_user_id != id:
+    #     return jsonify({"message":"Unauthorized"}),401
+    
+    user=User.query.get(id)
+    if not user:
+        return jsonify({"message":"User not found"}),404
+    
+    data=request.get_json()
+    if 'password' in data:
+        data['passwaord']= generate_password_hash(data['password'])
+
+    for key, value in data.items():
+        setattr(user,key,value)
+    db.session.commit()
+
+    return jsonify({"message":"User update succesfully"}),200
+
 
 #delete user
-@user_bp.route("/users", methods=["DELETE"])
-def delete_user():
-    pass
+@user_bp.route("/users/<int:id>", methods=["DELETE"])
+@jwt_required()
+def delete_user(id):
+    current_user_id= get_jwt_identity()
+    if current_user_id != id:
+        return jsonify({"message":"Unauthorized"}),401
+    
+    user=User.query.get(id)
+    if not user:
+        return jsonify({"message":"User not found"}),404
+    
+    db.session.delete(user)
+    db.session.commit()
+
+    return jsonify({"message":"User deleted succesfully"}), 200
