@@ -11,9 +11,10 @@ def add_users():
     pass
 
 #fetch all users
-@user_bp.route("/users")
+@user_bp.route("/users", methods=["GET"])
 def get_users():
-    pass
+    users=[user.to_dict() for user in db.session.query(User).all()]
+    return jsonify(users),200
 
 #fetch single user
 @user_bp.route('/users/<int:id>')
