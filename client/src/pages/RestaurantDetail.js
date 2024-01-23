@@ -42,7 +42,7 @@ const RestaurantDetail = () => {
         </div>
         <BookingForm />
       </div>
-    <div className="mt-12 w-full max-w-[800px] mx-auto">
+    <div className="mt-12 w-full max-w-[800px] ">
         <h5 className='text-xl text-center'>Reviews</h5>
         <ul className='flex flex-col gap-4 mt-4'>
             {Array.from([1, 2, 3, 4, 5, 6]).map((i) => {
