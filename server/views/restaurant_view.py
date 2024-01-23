@@ -41,3 +41,14 @@ def add_restaurant():
         db.session.add(new_restaurant)
         db.session.commit()
         return jsonify({"success": "Restaurant added successfully!"}), 201
+    
+@restaurant_bp.route('/restaurants/<int:id>', methods =['DELETE'])
+def delete_restaurant(id):
+    restaurant = db.session.query(Restaurant).filter_by(id=id).first()
+    if restaurant:
+        db.session.delete(restaurant)
+        db.session.commit()
+        return jsonify({"message":"Successfully deleted the restaurant."}),200
+    else:
+        return jsonify({"error":"The restaurant with given ID doesnot exist."}),404
+    
