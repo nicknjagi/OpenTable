@@ -37,3 +37,30 @@ def create_review():
     db.session.add(new_review)
     db.session.commit()
     return jsonify(new_review.to_dict()), 201
+
+@review_bp.route('/reviews/<int:id>', methods=['PUT'])
+def update_review(id):
+    review = Review.query.filter_by(id=id).first()
+    if not review:
+        return jsonify({'error':'Invalid review id.'}),404
+    if review:
+        data = request.get_json()
+
+        # Retrieve values from data dictionary
+        restaurant_id = data.get('restaurant_id')
+        user_id = data.get('user_id')
+        rating = data.get('rating')
+        comment = data.get('comment')
+
+        # Update the restaurant attributes
+        review.restaurant_id = restaurant_id
+        review.user_id = user_id
+        review.rating = rating
+        review.comment = comment
+    
+        db.session.commit()
+        return jsonify({"success": "Review updated successfully"}), 200
+
+    else:
+        return jsonify({"error":"Review does not exist!"}), 404
+
