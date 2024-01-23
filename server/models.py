@@ -22,6 +22,8 @@ class User(db.Model, SerializerMixin):
     def validate_email(self, key, email):
         assert '@' in email, "Invalid email address"
         return email
+     
+    reviews = db.relationship('Review', backref=db.backref('user', lazy=True))
     
 class Restaurant(db.Model, SerializerMixin):
     """Restaurants that the user can review"""
@@ -58,7 +60,7 @@ class Review(db.Model, SerializerMixin):
     """Reviews left by users about restaurants"""
     __tablename__ = 'reviews'
     
-    serialize_rules = ('-restaurant',)
+    serialize_rules = ('-restaurant','-user.reviews')
     id = db.Column(db.Integer, primary_key=True)
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
