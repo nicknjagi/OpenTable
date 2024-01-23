@@ -10,7 +10,7 @@ export default function Nav() {
       <Navbar.Collapse>
         <div className="flex px-4 md:px-0 flex-col md:flex-row gap-4 items-end md:items-center">
           <NavLink to="/">Home</NavLink>
-          <NavLink>Restaurants</NavLink>
+          <NavLink to='/Restaurants'>Restaurants</NavLink>
           <NavLink to="/login">Login</NavLink>
           <NavLink to="/signup">
             <Button gradientDuoTone="cyanToBlue" size="xs">
