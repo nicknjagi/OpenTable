@@ -3,8 +3,7 @@ from flask import request, jsonify, Blueprint
 from werkzeug.security import generate_password_hash
 from flask_jwt_extended import  jwt_required, get_jwt_identity
 
-
-
+user_bp = Blueprint('user_bp', __name__)
 
 #add users
 @user_bp.route("/users", methods=["POST"])
