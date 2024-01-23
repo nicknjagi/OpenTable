@@ -22,8 +22,10 @@ def seed_booking():
 def seed_review():
     pass
 
-if __name__=='__main__':
-    seed_user()
-    seed_restaurant()
-    seed_booking()
-    seed_review()
+if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
+        seed_user()
+        seed_restaurant()
+        seed_booking()
+        seed_review()
