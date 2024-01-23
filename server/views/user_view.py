@@ -18,8 +18,12 @@ def get_users():
 
 #fetch single user
 @user_bp.route('/users/<int:id>')
-def get_user(user_id):
-    pass
+def get_user(id):
+    user= User.query.get(id)
+    if user:
+        return jsonify(user.to_dict()),200
+    else:
+        return jsonify({"message": "User not found"}), 404
 
 #update user
 @user_bp.route("/users/edit", methods=['PUT'])
