@@ -23,3 +23,17 @@ def delete_review(id):
     db.session.delete(review)
     db.session.commit()
     return jsonify("Successfully deleted the review"), 200
+
+@review_bp.route("/reviews", methods=["POST"])
+def create_review():
+    data = request.get_json()
+    restaurant_id = data.get("restaurant_id")
+    user_id = data.get("user_id")
+    rating = data.get("rating")
+    comment = data.get("comment")
+    new_review = Review(user_id=user_id, 
+                    rating=rating, comment=comment, 
+                    restaurant_id=restaurant_id)
+    db.session.add(new_review)
+    db.session.commit()
+    return jsonify(new_review.to_dict()), 201
