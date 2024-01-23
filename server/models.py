@@ -1,10 +1,14 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import validates
 from datetime import datetime
+from sqlalchemy_serializer import SerializerMixin
 
 db = SQLAlchemy()
 
-class User(db.Model):
+class User(db.Model, SerializerMixin):
+    __tablename__ = 'users'
+
+    serialize_rules = ('-bookings','-restaurants')
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), nullable=False, unique=True)
     email = db.Column(db.String(120), nullable=False, unique=True)
@@ -18,8 +22,12 @@ class User(db.Model):
     def validate_email(self, key, email):
         assert '@' in email, "Invalid email address"
         return email
+    
+class Restaurant(db.Model, SerializerMixin):
+    """Restaurants that the user can review"""
+    __tablename__ = 'restaurants'
+    serialize_rules = ('-bookings.restaurant','-reviews.restaurant')
 
-class Restaurant(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     phone_no = db.Column(db.Integer)
@@ -27,30 +35,36 @@ class Restaurant(db.Model):
     restaurant_img = db.Column(db.String, nullable=True)
     location = db.Column(db.String(255))
     capacity = db.Column(db.Integer)
-    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
-    owner = db.relationship('User', backref=db.backref('restaurants', lazy=True))
+    bookings = db.relationship('Booking', backref=db.backref('restaurant', lazy=True))
+    reviews = db.relationship('Review', backref=db.backref('restaurant', lazy=True))
 
-class Booking(db.Model):
+
+class Booking(db.Model, SerializerMixin):
+    """Bookings for tables at a restaurant"""
+    __tablename__='bookings'
+
+    serialize_rules = ('-user','-restaurant')
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurant.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id'), nullable=False)
     booking_date = db.Column(db.Date, nullable=False)
     booking_time = db.Column(db.Time, nullable=False)
     party_size = db.Column(db.Integer, nullable=False)
     status = db.Column(db.String(20), nullable=False)  # e.g., confirmed, pending, cancelled
 
-    user = db.relationship('User', backref=db.backref('bookings', lazy=True))
-    restaurant = db.relationship('Restaurant', backref=db.backref('bookings', lazy=True))
-
-class Review(db.Model):
+class Review(db.Model, SerializerMixin):
+    """Reviews left by users about restaurants"""
+    __tablename__ = 'reviews'
+    
+    serialize_rules = ('-restaurant',)
     id = db.Column(db.Integer, primary_key=True)
-    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurant.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     rating = db.Column(db.Integer, nullable=False)
     comment = db.Column(db.Text)
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
 
-    user = db.relationship('User', backref=db.backref('reviews', lazy=True))
-    restaurant = db.relationship('Restaurant', backref=db.backref('reviews', lazy=True))
+
 
