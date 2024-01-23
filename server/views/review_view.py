@@ -6,3 +6,11 @@ review_bp = Blueprint('review_bp', __name__)
 def get_reviews():
     reviews = [review.to_dict() for review in db.session.query(Review).all()]
     return jsonify(reviews), 200
+
+@review_bp.route('/reviews/<int:id>', methods=['GET'])
+def get_review(id):
+    review = db.session.query(Review).filter_by(id=id).first()
+    if review:
+        return jsonify(review.to_dict()), 200
+    else:
+        return jsonify({"error": "Review not found"}), 404
