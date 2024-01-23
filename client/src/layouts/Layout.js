@@ -5,7 +5,7 @@ import Foot from '../components/Footer'
 
 const Layout = () => {
   return (
-    <div className="relative min-h-[100dvh] w-full">
+    <div className="relative min-h-[100vh] pb-24 w-full">
       {/* navbar */}
       <div className="w-full px-2 border-b border-b-zinc-300">
         <Nav />
@@ -13,7 +13,7 @@ const Layout = () => {
       {/* outlet */}
       <Outlet />
       {/* footer */}
-      <div className="w-full py-4 mb-auto bg-white px-2 border-t border-t-zinc-300 absolute left-1/2 -translate-x-1/2">
+      <div className="w-full py-4 mb-auto bg-white px-2 border-t border-t-zinc-300 absolute -bottom-0">
         <Foot />
       </div>
       </div>

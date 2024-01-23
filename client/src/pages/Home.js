@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from 'flowbite-react'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
   return (
@@ -14,11 +15,15 @@ const Home = () => {
           Got a culinary masterpiece to share? Perhaps you crave diversity in
           your daily servings? Our community is eagerly awaiting - jump in!
         </p>
-        <div className="flex flex-col md:flex-row gap-4 ">
-          <Button gradientDuoTone="purpleToBlue">
-            Register your Restaurant
-          </Button>
-          <Button gradientDuoTone="cyanToBlue">Find restaurants</Button>
+        <div className="flex flex-row gap-4 ">
+          <Link>
+              <Button gradientDuoTone="purpleToBlue">
+                Register your Restaurant
+              </Button>
+          </Link>
+          <Link to='/restaurants'>
+            <Button gradientDuoTone="cyanToBlue">Find restaurants</Button>
+          </Link>
         </div>
       </div>
     </main>
