@@ -6,6 +6,7 @@ import Review from '../components/Review'
 import BookingForm from '../components/BookingForm'
 import { Link, useParams } from 'react-router-dom'
 import { RestaurantsContext } from '../context/RestaurantsContext'
+import AddReviewForm from '../components/AddReviewForm'
 
 const RestaurantDetail = () => {
   const [restaurant, setRestaurant] = useState([])
@@ -38,7 +39,7 @@ const RestaurantDetail = () => {
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4">
       <h2 className="text-3xl font-semibold my-12">{restaurant.name}</h2>
-      <div className="flex flex-col md:flex-row gap-6 md:gap-10">
+      <div className="flex flex-col md:flex-row gap-6 md:gap-10 lg:gap-20">
         <div className="w-full max-w-[670px]">
           <img
             className={restaurant.restaurant_img}
@@ -48,7 +49,7 @@ const RestaurantDetail = () => {
           <p>
             {restaurant.description}
           </p>
-          <div className="flex flex-col md:flex-row gap-6 mt-4">
+          <div className="flex flex-wrap flex-col md:flex-row gap-6 mt-4">
             <p className="flex gap-2">
               {' '}
               <img className="w-5" src={peopleOutline} alt="icon" />
@@ -83,6 +84,7 @@ const RestaurantDetail = () => {
             return <Review review={review} key={review.id} />
           })}
         </ul>
+        <AddReviewForm />
       </div>
       <Link to="/restaurants" className="text-cyan-500 mt-8 block">
         {' '}
