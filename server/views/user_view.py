@@ -58,11 +58,11 @@ def get_user(id):
 
 #update user
 @user_bp.route("/users/<int:id>", methods=['PUT'])
-# @jwt_required()
+@jwt_required()
 def update_user(id):
-    # current_user_id= get_jwt_identity()
-    # if current_user_id != id:
-    #     return jsonify({"message":"Unauthorized"}),401
+    current_user_id= get_jwt_identity()
+    if current_user_id != id:
+        return jsonify({"message":"Unauthorized"}),401
     
     user=User.query.get(id)
     if not user:
@@ -80,11 +80,11 @@ def update_user(id):
 
 #delete user
 @user_bp.route("/users/<int:id>", methods=["DELETE"])
-# @jwt_required()
+@jwt_required()
 def delete_user(id):
-    # current_user_id= get_jwt_identity()
-    # if current_user_id != id:
-    #     return jsonify({"message":"Unauthorized"}),401
+    current_user_id= get_jwt_identity()
+    if current_user_id != id:
+        return jsonify({"message":"Unauthorized"}),401
     
     user=User.query.get(id)
     if not user:
