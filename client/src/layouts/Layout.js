@@ -7,7 +7,7 @@ const Layout = () => {
   return (
     <div className="relative min-h-[100vh] pb-24 w-full">
       {/* navbar */}
-      <div className="w-full px-2 border-b border-b-zinc-300">
+      <div className="w-full px-2 py-2 border-b border-b-zinc-300">
         <Nav />
       </div>
       {/* outlet */}
