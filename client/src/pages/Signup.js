@@ -1,16 +1,34 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { Button, Label, TextInput } from 'flowbite-react'
 import {Link} from 'react-router-dom'
+import { UserContext } from '../context/UserContext'
 
 const Signup = () => {
+    const {addUser} = useContext(UserContext)
+
+    function handleSubmit(e){
+        e.preventDefault()
+        const formData = new FormData(e.currentTarget)
+        const username = formData.get('username')
+        const email = formData.get('email')
+        const password = formData.get('password')
+        const password2 = formData.get('password2')
+        if(password !== password2){
+            console.log("password error");
+        }
+        if(password !== "" && username !== "" && email !== ''){
+            addUser(username, email, password)
+        } 
+    }
+    
   return (
-    <form className="flex max-w-md flex-col gap-4 mx-auto my-16 px-4">
+    <form onSubmit={handleSubmit} className="flex max-w-md flex-col gap-4 mx-auto my-16 px-4">
       <h3 className="text-2xl text-center">Create Account</h3>
       <div>
         <div className="mb-2 block">
           <Label htmlFor="username" value="Username" />
         </div>
-        <TextInput id="username" type="email" placeholder="username" required />
+        <TextInput id="username" name='email' type="text" placeholder="username" required/>
       </div>
       <div>
         <div className="mb-2 block">
@@ -19,21 +37,22 @@ const Signup = () => {
         <TextInput
           id="email1"
           type="email"
+          name='email'
           placeholder="name@flowbite.com"
           required
         />
       </div>
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="password1" value="Password" />
+          <Label htmlFor="password" value="Password" />
         </div>
-        <TextInput id="password1" type="password" required />
+        <TextInput id="password" name='password' type="password" required/>
       </div>
       <div>
         <div className="mb-2 block">
           <Label htmlFor="password2" value="Confirm password" />
         </div>
-        <TextInput id="password2" type="password" required />
+        <TextInput id="password2" name='password2' type="password" required/>
       </div>
       <Button gradientDuoTone="cyanToBlue" type="submit">
         Signup
