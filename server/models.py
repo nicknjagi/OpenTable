@@ -68,5 +68,8 @@ class Review(db.Model, SerializerMixin):
     comment = db.Column(db.Text)
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
 
-
+class TokenBlocklist(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    jti =  db.Column(db.String(100),nullable=True)
+    created_at = db.Column(db.DateTime(), default=datetime.utcnow)
 
