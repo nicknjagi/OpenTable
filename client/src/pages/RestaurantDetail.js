@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import peopleOutline from '../assets/images/people-outline.svg'
 import locationOutline from '../assets/images/location-outline.svg'
 import callOutline from '../assets/images/call-outline.svg'
 import Review from '../components/Review'
 import BookingForm from '../components/BookingForm'
 import { Link } from 'react-router-dom'
+import { RestaurantsContext } from '../context/RestaurantsContext'
 
 const RestaurantDetail = () => {
+  
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4">
       <h2 className="text-3xl font-semibold my-12">The restaurant name</h2>
