@@ -1,14 +1,13 @@
-import React,{useState,useContext, useEffect} from 'react'
+import React from 'react'
+import { Button, Label, TextInput } from 'flowbite-react'
+import {Link} from 'react-router-dom'
 import Swal from "sweetalert2"
 import {useNavigate} from "react-router-dom"
 
 
 export default function Resetpassword() {
-    const [username, setUsername] = useState()
-    const [email, setEmail] = useState()
-    const [onchange, setOnchange] = useState(false)
+    
     const navigate = useNavigate()
-
 
     function reset(username,email){
         fetch("/reset_password",{
@@ -20,7 +19,7 @@ export default function Resetpassword() {
         })
         .then((res)=> res.json())
         .then(response =>{
-            if(response){
+            if(response.message){
                 navigate("/login")
                 Swal.fire({
                     position: "center",
@@ -38,17 +37,56 @@ export default function Resetpassword() {
                     showConfirmButton: false,
                     timer: 1500
                     });
-                    setOnchange(!onchange)
             }
         })
     }
 
-    const handleSubmit=(e)=>{
+    function handleSubmit(e) {
         e.preventDefault()
-        response(username, email)
+        const formData = new FormData(e.currentTarget)
+        const username = formData.get('username')
+        const email = formData.get('email')
+        const new_password = formData.get('new_password')
 
-        setUsername("")
-        setEmail("")
+        if (email !== '' && username !== '') {
+            const requestData = {
+                username: username,
+                email: email,
+                new_password: new_password,
+            };
+
+            fetch("/reset_password", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(requestData),
+            })
+            .then((res) => res.json())
+            .then((response) => {
+                if (response.message) {
+                    navigate("/login");
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: response.message,
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                } else {
+                    Swal.fire({
+                        position: "center",
+                        icon: "error",
+                        title: response.error,
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
     }
 
   return (
@@ -62,17 +100,22 @@ export default function Resetpassword() {
           id="username"
           name='username'
           type="text"
-          value={username}
-          onchange={(e)=> setUsername(e.target.value)}
           required
         />
       </div>
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="password" value="Password" />
+          <Label htmlFor="email" value="Email" />
         </div>
-        <TextInput id="password" name='password' type="password" 
-        value={email} onChange={(e)=> setEmail(e.target.value)} required />
+        <TextInput id="email" name='email' type="text" 
+        required />
+      </div>
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="password" value="New Password" />
+        </div>
+        <TextInput id="new_password" name='new_password' type="password" 
+        required />
       </div>
       <Button gradientDuoTone="cyanToBlue" type="submit">
         Reset
