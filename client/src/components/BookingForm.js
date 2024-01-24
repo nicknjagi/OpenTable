@@ -15,7 +15,7 @@ const BookingForm = () => {
         <div className="mb-2 block">
           <Label htmlFor="size" value="Party size" />
         </div>
-        <TextInput className="w-24" id="size" type="number" required />
+        <TextInput className="w-24" id="size" type="number" min='1' required />
       </div>
       <div>
         <div className="mb-2 block">
