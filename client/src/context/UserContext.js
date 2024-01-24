@@ -26,8 +26,8 @@ export default function UserProvider({ children }) {
       .then((res) => res.json())
       .then((response) => {
         if (response.success) {
-          navigate('/login')
-          setOnchange(!onchange)
+            window.location.href = '/login'
+            setOnchange(!onchange)
         } else {
           setOnchange(!onchange)
         }
@@ -61,7 +61,7 @@ export default function UserProvider({ children }) {
   function logout() {
     sessionStorage.removeItem('authToken')
     setCurrentUser(null)
-    navigate('/login')
+    window.location.href = '/login'
   }
 
   // Get Authenticated user
