@@ -69,7 +69,15 @@ const RestaurantDetail = () => {
         <h5 className="text-xl text-center mb-8">Reviews</h5>
         <ul className="flex flex-col gap-4 mt-4">
           {restaurant.reviews.map((review) => {
-            return <Review review={review} key={review.id} />
+            return (
+              <Review
+                onchange={onchange}
+                setOnchange={setOnchange}
+                isLoading={isLoading}
+                review={review}
+                key={review.id}
+              />
+            )
           })}
         </ul>
         <AddReviewForm onchange={onchange} setOnchange={setOnchange}/>
