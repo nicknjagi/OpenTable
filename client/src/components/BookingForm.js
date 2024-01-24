@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Button, Datepicker, Label, TextInput } from 'flowbite-react'
-import { Navigate, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { UserContext } from '../context/UserContext'
 
 const BookingForm = ({ onchange, setOnchange }) => {
