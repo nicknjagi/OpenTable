@@ -49,7 +49,7 @@ export default function UserProvider({ children }) {
           sessionStorage.setItem('authToken', response.access_token)
           setAuthToken(response.access_token)
 
-          navigate('/questions')
+          navigate('/')
           setOnchange(!onchange)
         } else {
             console.log('error logging in');
