@@ -1,4 +1,3 @@
-import { Card } from 'flowbite-react'
 import peopleOutline from '../assets/images/people-outline.svg'
 import locationOutline from '../assets/images/location-outline.svg'
 import { Link } from 'react-router-dom'
