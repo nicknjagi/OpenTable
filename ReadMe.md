@@ -2,7 +2,7 @@
 #### A Restaurant Booking Application, 25/01/2024
 ### **BY Nicholas,Sean & Caleb
 ## Description
- - This is a web application that allows users to make restaurant    reservations and promote their own restaurants online.
+ - This is a web application that allows users to make restaurant reservations and promote their own restaurants online.
 
 ## Setup/Installation Requirements
 
@@ -38,7 +38,8 @@ The application works perfectly well, no bugs.
 
 ## Support and contact details
  - mutisyacalebmusau@gmail.com
- - def@gmail.com
+ - seanmotanya@gmail.com
+ - njaginicholas@gmail.com
 
 ### License
 MIT License
