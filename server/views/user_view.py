@@ -8,37 +8,25 @@ user_bp = Blueprint('user_bp', __name__)
 #add users
 @user_bp.route("/users", methods=["POST"])
 def add_users():
-    try:
-        data= request.get_json()
+    data= request.get_json()
 
-        required_fields=["username", "email", "password"]
-        for field in required_fields:
-            if field not in data:
-                return jsonify({"message": f"{field} is required"}), 400
-            
-        existing_user=User.query.filter((User.username == data["username"])| (User.email == data["email"])).first()
-        if existing_user:
-            return jsonify({"message":"Username or email already exists"}),400
+    username = data['username']
+    email = data['email']
+    password = generate_password_hash(data['password'], )
         
-        hashed_password=generate_password_hash(data["password"])
+    check_username = User.query.filter_by(username=username).first()
+    check_email = User.query.filter_by(email=email).first()
+    
+    if check_username or check_email:
+        return jsonify({"error": "User email/username/phone already exist!"})
 
-        new_user= User(
-            username=data['username'],
-            email=data["email"],
-            password=hashed_password,
-            profile_img=data.get("profile_img", ""),
-            contact_info=data.get("contact_info", ""),
-            first_name=data.get("first_name", ""),
-            last_name=data.get("last_name", "")
-        )
-
+    else:
+        new_user = User(email=email, password=password, username=username)
         db.session.add(new_user)
         db.session.commit()
+        return jsonify({"success": "User added successfully!"}), 201
 
-        return jsonify({"message": "User added succcesfully"}),201
-    except Exception as e:
-        print(str(e))
-        return jsonify({"message":"Internal Server Error"})
+        
     
 
 #fetch all users
