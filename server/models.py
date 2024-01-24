@@ -18,10 +18,6 @@ class User(db.Model, SerializerMixin):
     first_name=db.Column(db.String, nullable=True)
     last_name=db.Column(db.String, nullable=True)
 
-    @validates('email')
-    def validate_email(self, key, email):
-        assert '@' in email, "Invalid email address"
-        return email
      
     reviews = db.relationship('Review', backref=db.backref('user', lazy=True))
     
