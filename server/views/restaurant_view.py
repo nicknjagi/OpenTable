@@ -7,7 +7,7 @@ restaurant_bp = Blueprint('restaurant_bp', __name__)
 #fetch alll restaurants
 @restaurant_bp.route('/restaurants', methods=['GET'])
 def get_all_restaurants():
-    restaurants = [ {"id": restaurant.id, "name": restaurant.name, "location": restaurant.location} for restaurant in db.session.query().a()]
+    restaurants = [ {"id": restaurant.id, "name": restaurant.name, "location": restaurant.location} for restaurant in db.session.query(Restaurant).all()]
     return jsonify(restaurants), 200
     
 @restaurant_bp.route('/restaurants/<int:id>', methods=['GET'])
