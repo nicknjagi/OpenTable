@@ -9,10 +9,11 @@ export default function Nav() {
       <Navbar.Toggle />
       <Navbar.Collapse>
         <div className="flex px-4 md:px-0 flex-col md:flex-row gap-4 items-end md:items-center">
-          <NavLink to="/">Home</NavLink>
-          <NavLink to='/Restaurants'>Restaurants</NavLink>
-          <NavLink to="/login">Login</NavLink>
-          <NavLink to="/signup">
+          <NavLink className={({isActive}) => isActive ? "text-cyan-500" : null} to="/">Home</NavLink>
+          <NavLink className={({isActive}) => isActive ? "text-cyan-500" : null} to='/restaurants'>Restaurants</NavLink>
+          <NavLink className={({isActive}) => isActive ? "text-cyan-500" : null} to='/reservations'>Reservations</NavLink>
+          <NavLink className={({isActive}) => isActive ? "text-cyan-500" : null} to="/login">Login</NavLink>
+          <NavLink className={({isActive}) => isActive ? "text-cyan-500" : null} to="/signup">
             <Button gradientDuoTone="cyanToBlue" size="xs">
               Sign Up
             </Button>

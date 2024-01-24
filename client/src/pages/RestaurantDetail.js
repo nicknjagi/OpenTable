@@ -1,8 +1,10 @@
 import React from 'react'
 import peopleOutline from '../assets/images/people-outline.svg'
 import locationOutline from '../assets/images/location-outline.svg'
+import callOutline from '../assets/images/call-outline.svg'
 import Review from '../components/Review'
 import BookingForm from '../components/BookingForm'
+import { Link } from 'react-router-dom'
 
 const RestaurantDetail = () => {
   return (
@@ -23,10 +25,10 @@ const RestaurantDetail = () => {
             adipisci quia optio facere, quod natus unde. Deleniti commodi
             veritatis quidem facere incidunt!
           </p>
-          <div className="flex gap-6 mt-4">
+          <div className="flex flex-col md:flex-row gap-6 mt-4">
             <p className="flex gap-2">
               {' '}
-              <img className="w-5" src={peopleOutline} alt="restaurant icon" />
+              <img className="w-5" src={peopleOutline} alt="icon" />
               Available seats 30
             </p>
             <p className="flex gap-2">
@@ -34,22 +36,35 @@ const RestaurantDetail = () => {
               <img
                 className="w-5"
                 src={locationOutline}
-                alt="restaurant icon"
+                alt="icon"
               />
               4740 Baum Blvd, Pittsburgh
+            </p>
+            <p className="flex gap-2">
+              {' '}
+              <img
+                className="w-5"
+                src={callOutline}
+                alt="icon"
+              />
+              0725135864
             </p>
           </div>
         </div>
         <BookingForm />
       </div>
-    <div className="mt-12 w-full max-w-[800px] mx-auto">
-        <h5 className='text-xl text-center'>Reviews</h5>
-        <ul className='flex flex-col gap-4 mt-4'>
-            {Array.from([1, 2, 3, 4, 5, 6]).map((i) => {
+      <div className="mt-12 w-full max-w-[800px] ">
+        <h5 className="text-xl text-center mb-8">Reviews</h5>
+        <ul className="flex flex-col gap-4 mt-4">
+          {Array.from([1, 2, 3, 4, 5, 6]).map((i) => {
             return <Review key={i} />
-            })}
+          })}
         </ul>
-    </div>
+      </div>
+      <Link to="/restaurants" className="text-cyan-500 mt-8 block">
+        {' '}
+        &lt; Back
+      </Link>
     </section>
   )
 }

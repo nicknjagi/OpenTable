@@ -5,7 +5,10 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Restaurants from './pages/Restaurants'
 import RestaurantDetail from './pages/RestaurantDetail'
-
+import Reservations from './pages/Reservations'
+import ReservationLayout from './layouts/ReservationLayout'
+import RestaurantBookings from './pages/RestaurantBookings'
+import RestaurantRegistration from './pages/RestaurantRegistration'
 export default function App() {
   return (
     <Routes>
@@ -15,6 +18,11 @@ export default function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/restaurants" element={<Restaurants />} />
         <Route path="/restaurant/:id" element={<RestaurantDetail />} />
+        <Route path="/reservations" element={<ReservationLayout />}>
+          <Route index element={<Reservations />} />
+          <Route path='restaurant' element={<RestaurantBookings />} />
+        </Route>
+        <Route path='/register_restaurant' element={<RestaurantRegistration /> }/>
       </Route>
     </Routes>
   )
