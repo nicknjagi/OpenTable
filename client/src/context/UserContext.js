@@ -23,16 +23,13 @@ export default function UserProvider({ children }) {
       },
       body: JSON.stringify({ username, email, password }),
     })
-      .then((res) => res.json())
-      .then((response) => {
-        if (response.success) {
-            setOnchange(!onchange)
-            window.location.href = '/login'
+      .then((res) =>{
+        if(res.ok){
             navigate('/login')
-        } else {
-          setOnchange(!onchange)
         }
-      })
+        res.json()
+    })
+      .catch(err => console.log(err))
   }
 
   // login user
