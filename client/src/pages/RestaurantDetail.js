@@ -1,37 +1,58 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import peopleOutline from '../assets/images/people-outline.svg'
 import locationOutline from '../assets/images/location-outline.svg'
 import callOutline from '../assets/images/call-outline.svg'
 import Review from '../components/Review'
 import BookingForm from '../components/BookingForm'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { RestaurantsContext } from '../context/RestaurantsContext'
 
 const RestaurantDetail = () => {
+  const [restaurant, setRestaurant] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState(true)
+  const {id}= useParams()
+
+  useEffect(()=> {
+    setIsLoading(true)
+    setError(false)
+    fetch(`/restaurants/${id}`)
+      .then((res) => {
+        if(res.status === 404){
+            setError(true)
+            return
+        }
+        return res.json()
+      })
+      .then((data) =>{
+         setRestaurant(data)
+         setIsLoading(false)
+      })
+  },[])
+
+  if (isLoading) return <h2 className='text-2xl text-center mt-12'>Loading...</h2>
   
+  if (error) return <h2 className='text-2xl text-center mt-12'>Restaurant not found</h2>
+
+
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4">
-      <h2 className="text-3xl font-semibold my-12">The restaurant name</h2>
+      <h2 className="text-3xl font-semibold my-12">{restaurant.name}</h2>
       <div className="flex flex-col md:flex-row gap-6 md:gap-10">
         <div className="w-full max-w-[670px]">
           <img
-            className="rounded-2xl w-full"
-            src="https://b.zmtcdn.com/data/collections/2e5c28a5fbcb2b35d84c0a498b0e1ba2_1674825837.jpg?fit=around|562.5:360&crop=562.5:360;*,*"
+            className={restaurant.restaurant_img}
             alt=""
           />
           <h3 className="mt-6 mb-4 text-2xl">About</h3>
           <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus
-            rerum nemo doloribus, vel error, molestias aliquid at neque, quam
-            reprehenderit dolor minus est libero? Sunt distinctio eligendi
-            adipisci quia optio facere, quod natus unde. Deleniti commodi
-            veritatis quidem facere incidunt!
+            {restaurant.description}
           </p>
           <div className="flex flex-col md:flex-row gap-6 mt-4">
             <p className="flex gap-2">
               {' '}
               <img className="w-5" src={peopleOutline} alt="icon" />
-              Available seats 30
+              Available seats {restaurant.capacity}
             </p>
             <p className="flex gap-2">
               {' '}
@@ -40,7 +61,7 @@ const RestaurantDetail = () => {
                 src={locationOutline}
                 alt="icon"
               />
-              4740 Baum Blvd, Pittsburgh
+              {restaurant.location}
             </p>
             <p className="flex gap-2">
               {' '}
@@ -49,7 +70,7 @@ const RestaurantDetail = () => {
                 src={callOutline}
                 alt="icon"
               />
-              0725135864
+              {restaurant.phone_no}
             </p>
           </div>
         </div>
@@ -58,8 +79,8 @@ const RestaurantDetail = () => {
       <div className="mt-12 w-full max-w-[800px] ">
         <h5 className="text-xl text-center mb-8">Reviews</h5>
         <ul className="flex flex-col gap-4 mt-4">
-          {Array.from([1, 2, 3, 4, 5, 6]).map((i) => {
-            return <Review key={i} />
+          {restaurant.reviews.map((review) => {
+            return <Review review={review} key={review.id} />
           })}
         </ul>
       </div>
