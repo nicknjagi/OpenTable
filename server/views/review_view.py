@@ -50,16 +50,17 @@ def create_review():
     return jsonify(new_review.to_dict()), 201
 
 @review_bp.route('/reviews/<int:id>', methods=['PUT'])
+@jwt_required()
 def update_review(id):
+    user_id = get_jwt_identity()
     review = Review.query.filter_by(id=id).first()
-    if not review:
-        return jsonify({'error':'Invalid review id.'}),404
+    if not review or review.user_id != user_id:
+        return jsonify({'error':'Invalid review id or editing unauthorized.'}),404
     if review:
         data = request.get_json()
 
         # Retrieve values from data dictionary
         restaurant_id = data.get('restaurant_id')
-        user_id = data.get('user_id')
         rating = data.get('rating')
         comment = data.get('comment')
 
@@ -73,5 +74,5 @@ def update_review(id):
         return jsonify({"success": "Review updated successfully"}), 200
 
     else:
-        return jsonify({"error":"Review does not exist!"}), 404
+        return jsonify({"error":"Review update failed!"}), 404
 
