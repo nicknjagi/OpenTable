@@ -31,7 +31,7 @@ export default function Nav() {
           {currentUser ? (
             <NavLink
               className={({ isActive }) => (isActive ? 'text-cyan-500' : null)}
-              to="/signup">
+              to="/login">
               <Button onClick={logout} gradientDuoTone="cyanToBlue" size="xs">
                 Logout
               </Button>
