@@ -10,7 +10,7 @@ const Home = () => {
           Snag Your Spot, Stress-Free – Reservations, Ready, Set, Go!
         </h1>
       </div>
-      <div className="mx-auto my-16 max-w-[1280px]">
+      <div className="mx-auto my-16 max-w-[1254px]">
         <p className="w-full my-10 text-2xl font-semibold max-w-2xl">
           Got a culinary masterpiece to share? Perhaps you crave diversity in
           your daily servings? Our community is eagerly awaiting - jump in!
