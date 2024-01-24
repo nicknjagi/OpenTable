@@ -19,13 +19,9 @@ export default function RestaurantsProvider({children}){
         .then(data => setRestaurants(data))
     }
 
-    function getRestaurantById(id){
-        fetch(`/restaurants/id`)
-          .then((res) => res.json())
-          .then((data) => data)
+    const contextData = {
+        restaurants
     }
-
-    const contextData = {restaurants}
 
     return (
         <RestaurantsContext.Provider value={contextData} >
