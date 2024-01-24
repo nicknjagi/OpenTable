@@ -59,7 +59,6 @@ export default function UserProvider({ children }) {
   function logout() {
     sessionStorage.removeItem('authToken')
     setCurrentUser(null)
-    window.location.href = '/login'
   }
 
   // Get Authenticated user
