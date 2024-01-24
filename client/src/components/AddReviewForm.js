@@ -1,14 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Button, Textarea, Label, TextInput } from 'flowbite-react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { UserContext } from '../context/UserContext'
 
 const AddReviewForm = ({onchange, setOnchange}) => {
+    const { authToken, currentUser } = useContext(UserContext)
     const {id} = useParams()
 
-    const authToken = sessionStorage.getItem('authToken')
+    const navigate = useNavigate()
 
     function handleSubmit(e){
         e.preventDefault()
+        if (!currentUser) {
+            navigate('/login')
+        }
         const formData = new FormData(e.currentTarget)
         const comment = formData.get('comment')
         const rating = formData.get('rating')
