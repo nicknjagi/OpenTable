@@ -63,7 +63,7 @@ const RestaurantDetail = () => {
             </p>
           </div>
         </div>
-        <BookingForm />
+        <BookingForm onchange={onchange} setOnchange={setOnchange} />
       </div>
       <div className="mt-12 w-full max-w-[800px] ">
         <h5 className="text-xl text-center mb-8">Reviews</h5>
@@ -80,7 +80,7 @@ const RestaurantDetail = () => {
             )
           })}
         </ul>
-        <AddReviewForm onchange={onchange} setOnchange={setOnchange}/>
+        <AddReviewForm onchange={onchange} setOnchange={setOnchange} />
       </div>
       <Link to="/restaurants" className="text-cyan-500 mt-8 inline-block">
         {' '}
