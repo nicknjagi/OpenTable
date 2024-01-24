@@ -1,6 +1,6 @@
 from models import db, User,TokenBlocklist
 from flask import request, jsonify, Blueprint
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_jwt
 
 auth_bp = Blueprint('auth_bp', __name__)
@@ -57,3 +57,25 @@ def logout():
     db.session.commit()
 
     return jsonify({"success": "Logged out successfully!"}), 200
+
+#Reset password
+@auth_bp.route("/reset_password", methods=["POST"])
+def reset_password():
+    data=request.get_json()
+    username=data.get('username')
+    email=data.get('email')
+    new_password=data.get('new_password')
+
+    user=User.query.filter_by(username=username, email=email).first()
+
+    if user:
+        #Update the password
+        user.password= generate_password_hash(new_password)
+        db.session.commit()
+
+        return jsonify({"message":"Password reset succesfully"}),200
+    else:
+        return jsonify({"error":"Invalid username or email"}), 404
+    
+
+
