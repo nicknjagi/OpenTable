@@ -1,16 +1,41 @@
-import React from 'react'
-import { Rating } from 'flowbite-react'
+import React, { useContext } from "react"
+import trashOutline from '../assets/images/trash-outline.svg'
+import { UserContext } from "../context/UserContext"
 
-const Review = ({review}) => {
-  
+const Review = ({review, onchange, setOnchange}) => {
+    const {authToken, currentUser} = useContext(UserContext)
+    
+    function handleDelete(id){
+        fetch(`/reviews/${id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${authToken && authToken}`,
+          }
+        }).then(res => {
+            if(res.ok){
+                setOnchange(!onchange)
+            }
+        })
+    }
   return (
     <li className="border border-zinc-300 py-2 px-4 rounded-md">
-      <div className='flex gap-4 items-center my-2'>
-        <img className='w-12 h-12 rounded-full object-cover object-top'
-          src={review.user.profile_img}
-          alt="profile pic"
-        />
-        <span>{review.user.username}</span>
+      <div className="flex justify-between items-center">
+          <div className='flex gap-4 items-center my-2'>
+            <img className='w-12 h-12 rounded-full object-cover object-top'
+              src={review.user?.profile_img}
+              alt={review.user?.username}
+            />
+            <span>{review.user?.username}</span>
+          </div>
+          <div className="flex gap-2">
+            {currentUser && review.user_id === currentUser.id ?
+            <button onClick={id => handleDelete(review.id)} aria-label="delete">
+                <img className="w-4" src={trashOutline} alt="icon" />
+            </button>
+            : null
+        }
+          </div>
       </div>
       <p>
         {review.comment}

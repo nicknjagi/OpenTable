@@ -6,6 +6,7 @@ export const RestaurantsContext = createContext()
 
 export default function RestaurantsProvider({children}){
     const [restaurants, setRestaurants] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
     const [onchange, setOnchange] = useState(false)
     const navigate= useNavigate()
 
@@ -18,7 +19,10 @@ export default function RestaurantsProvider({children}){
     function getAllRestaurants(){
         fetch('/restaurants')
         .then(res => res.json())
-        .then(data => setRestaurants(data))
+        .then(data => {
+            setRestaurants(data)
+            setIsLoading(false)
+        })
     }
 
     function addRestaurant(restaurant){
@@ -39,7 +43,8 @@ export default function RestaurantsProvider({children}){
 
     const contextData = {
         restaurants,
-        addRestaurant
+        addRestaurant,
+        isLoading
     }
 
     return (

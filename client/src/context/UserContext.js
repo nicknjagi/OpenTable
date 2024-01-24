@@ -26,8 +26,9 @@ export default function UserProvider({ children }) {
       .then((res) => res.json())
       .then((response) => {
         if (response.success) {
-            window.location.href = '/login'
             setOnchange(!onchange)
+            window.location.href = '/login'
+            navigate('/login')
         } else {
           setOnchange(!onchange)
         }
@@ -92,9 +93,8 @@ export default function UserProvider({ children }) {
     addUser,
     login,
     logout,
-    currentUser
-
-    // pass all your variables and function
+    currentUser,
+    authToken
   }
 
   return (
