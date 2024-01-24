@@ -1,9 +1,24 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Button, Textarea, Label, TextInput } from 'flowbite-react'
+import { RestaurantsContext } from '../context/RestaurantsContext'
 
 const RestaurantRegistration = () => {
+    const {addRestaurant} = useContext(RestaurantsContext)
+
+    function handleSubmit(e) {
+        e.preventDefault()
+        const formData = new FormData(e.currentTarget)
+        const restaurant = Object.fromEntries(formData)
+
+        for (const arr of [...formData.entries()]){
+            if(arr.includes(' ')) return
+        }
+        
+        addRestaurant(restaurant)
+    }
+
   return (
-    <form className="flex max-w-md mx-auto px-4 mt-12 flex-col gap-4">
+    <form onSubmit={handleSubmit} className="flex max-w-md mx-auto px-4 mt-12 flex-col gap-4">
       <h2 className="text-2xl font-semibold text-center mb-6">
         Register your restaurant
       </h2>
@@ -11,37 +26,37 @@ const RestaurantRegistration = () => {
         <div className="mb-2 block">
           <Label htmlFor="name" value="Restaurant name" />
         </div>
-        <TextInput id="name" type="text" required />
+        <TextInput id="name" name='name' type="text" required />
       </div>
       <div>
         <div className="mb-2 block">
           <Label htmlFor="phone" value="Phone" />
         </div>
-        <TextInput id="phone" type="text" required />
+        <TextInput id="phone" name='phone_no' type="text" required />
       </div>
       <div className="max-w-md">
         <div className="mb-2 block">
           <Label htmlFor="description" value="Description" />
         </div>
-        <Textarea id="description" required rows={4} />
+        <Textarea id="description" name='description' required rows={4} />
       </div>
       <div>
         <div className="mb-2 block">
           <Label htmlFor="image" value="Image" />
         </div>
-        <TextInput id="image" type="text" required />
+        <TextInput id="image" name='restaurant_img' type="text" required />
       </div>
       <div>
         <div className="mb-2 block">
           <Label htmlFor="location" value="Location" />
         </div>
-        <TextInput id="location" type="text" required />
+        <TextInput id="location" name='location' type="text" />
       </div>
       <div>
         <div className="mb-2 block">
           <Label htmlFor="capacity" value="Capacity" />
         </div>
-        <TextInput id="capacity" type="number" min='1' required />
+        <TextInput id="capacity" name='capacity' type="number" min='1' required />
       </div>
       <Button gradientDuoTone="cyanToBlue" type="submit">
         Submit
