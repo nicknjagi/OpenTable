@@ -5,7 +5,7 @@ from flask_jwt_extended import  jwt_required, get_jwt_identity
 booking_bp = Blueprint('booking_bp', __name__)
 
 @booking_bp.route("/bookings", methods=["POST"])
-# @jwt_required()
+@jwt_required()
 def create_booking():
     user_id = get_jwt_identity()
     data = request.get_json()
@@ -21,7 +21,7 @@ def create_booking():
         booking_date=data["booking_date"],
         booking_time=data["booking_time"],
         party_size=data["party_size"],
-        status="pending"  # You can set the default status
+        status="pending"  # the default status
     )
 
     db.session.add(new_booking)
@@ -30,15 +30,14 @@ def create_booking():
     return jsonify({"message": "Booking created successfully"}), 201
 
 @booking_bp.route("/bookings", methods=["GET"])
-# @jwt_required()
+@jwt_required()
 def get_user_bookings():
     user_id=get_jwt_identity()
     user_bookings=Booking.query.filter_by(user_id=user_id).all()
-
     return jsonify([booking.to_dict() for booking in user_bookings]),200
 
 @booking_bp.route("/bookings/restaurant", methods=["GET"])
-# @jwt_required()
+@jwt_required()
 def get_restaurant_bookings():
     restaurant_id=get_jwt_identity()
     restaurant_bookings=Booking.query.filter_by(restaurant_id=restaurant_id).all()
@@ -46,7 +45,7 @@ def get_restaurant_bookings():
     return jsonify([booking.to_dict() for booking in restaurant_bookings]),200
 
 @booking_bp.route("/bookings/<int:id>", methods=["DELETE"])
-# @jwt_required()
+@jwt_required()
 def delete_booking(id):
     user_id= get_jwt_identity()
     booking=Booking.query.get(id)
@@ -60,7 +59,7 @@ def delete_booking(id):
     return jsonify({"message":"Booking deleted successfully"}),200
 
 @booking_bp.route("/bookings/<int:id>", methods=["PUT"])
-# @jwt_required()
+@jwt_required()
 def edit_booking(id):
     user_id=get_jwt_identity()
     booking=Booking.query.get(id)
