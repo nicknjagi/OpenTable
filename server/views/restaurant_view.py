@@ -28,10 +28,10 @@ def add_restaurant():
 
     name = data.get("name")
     location = data.get("location")
-    phone_no = data.get("phone_no")
+    phone_no = int(data.get("phone_no"))
     description = data.get("description")
     restaurant_img = data.get("restaurant_img")
-    capacity = int(data.get("rating"))
+    capacity = int(data.get("capacity"))
 
     check_name = Restaurant.query.filter_by(name=name).first()
     

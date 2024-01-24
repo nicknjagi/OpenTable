@@ -28,7 +28,7 @@ const Signup = () => {
         <div className="mb-2 block">
           <Label htmlFor="username" value="Username" />
         </div>
-        <TextInput id="username" name='email' type="text" placeholder="username" required/>
+        <TextInput id="username" name='username' type="text" placeholder="username" required/>
       </div>
       <div>
         <div className="mb-2 block">
