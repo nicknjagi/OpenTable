@@ -1,12 +1,13 @@
 from models import db, Restaurant
 from flask import request, jsonify, Blueprint
+from flask_jwt_extended import  jwt_required, get_jwt_identity
+
 
 restaurant_bp = Blueprint('restaurant_bp', __name__)
 #fetch alll restaurants
 @restaurant_bp.route('/restaurants', methods=['GET'])
 def get_all_restaurants():
-    restaurants = [restaurant.to_dict() for restaurant in db.session.query(Restaurant).all()]
-    print (restaurants)
+    restaurants = [ {"id": restaurant.id, "name": restaurant.name} for restaurant in db.session.query().a()]
     return jsonify(restaurants), 200
     
 @restaurant_bp.route('/restaurants/<int:id>', methods=['GET'])
@@ -20,15 +21,17 @@ def get_restaurant(id):
 
 #add a new restaurant
 @restaurant_bp.route('/restaurants', methods=['POST'])
+@jwt_required()
 def add_restaurant():
+    owner_id = get_jwt_identity()
     data = request.get_json()
+
     name = data.get("name")
     location = data.get("location")
     phone_no = data.get("phone_no")
     description = data.get("description")
     restaurant_img = data.get("restaurant_img")
     capacity = int(data.get("rating"))
-    owner_id = int(data.get("owner_id"))
 
     check_name = Restaurant.query.filter_by(name=name).first()
     
@@ -43,8 +46,13 @@ def add_restaurant():
         return jsonify({"success": "Restaurant added successfully!"}), 201
     
 @restaurant_bp.route('/restaurants/<int:id>', methods =['DELETE'])
+@jwt_required()
 def delete_restaurant(id):
-    restaurant = db.session.query(Restaurant).filter_by(id=id).first()
+    #owner id should be the same as logged in user's id
+    owner_id = get_jwt_identity()
+    restaurant = Restaurant.query.filter_by(id=id).first()                                     
+    if not restaurant or restaurant.owner_id != owner_id:
+        return jsonify({"error":"You are not authorized to perform this action or restaurant does not exist."}),404
     if restaurant:
         db.session.delete(restaurant)
         db.session.commit()
@@ -53,10 +61,12 @@ def delete_restaurant(id):
         return jsonify({"error":"The restaurant with given ID doesnot exist."}),404
     
 @restaurant_bp.route('/restaurants/<int:id>', methods=['PUT'])
+@jwt_required()
 def update_restaurant(id):
+    owner_id = get_jwt_identity()
     restaurant = Restaurant.query.filter_by(id=id).first()
-    if not restaurant:
-        return jsonify({'error':'Invalid restaurant id.'}),404
+    if not restaurant or restaurant.owner_id != owner_id:
+        return jsonify({'error':'You are not authorised to perform this action or restaurant does not exist'}),404
     if restaurant:
         data = request.get_json()
 
@@ -67,7 +77,6 @@ def update_restaurant(id):
         description = data.get('description')
         location = data.get('location')
         capacity = data.get('capacity')
-        owner_id = data.get('owner_id')
 
         check_name = Restaurant.query.filter_by(name=name).first()
 
@@ -89,8 +98,3 @@ def update_restaurant(id):
 
     else:
         return jsonify({"error":"Restaurant does not exist!"}), 404
-
-
-    
-    
-    
