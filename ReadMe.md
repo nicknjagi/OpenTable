@@ -37,7 +37,7 @@ The application works perfectly well, no bugs.
  - Flask,Python & SQLite
 
 ## Support and contact details
- - abc@gmail.com
+ - mutisyacalebmusau@gmail.com
  - def@gmail.com
 
 ### License
