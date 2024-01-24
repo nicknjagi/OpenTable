@@ -1,9 +1,10 @@
-import React from "react"
+import React, { useContext } from "react"
 import trashOutline from '../assets/images/trash-outline.svg'
+import { UserContext } from "../context/UserContext"
 
 const Review = ({review, onchange, setOnchange}) => {
-    const authToken = sessionStorage.getItem('authToken')
-
+    const {authToken, currentUser} = useContext(UserContext)
+    
     function handleDelete(id){
         fetch(`/reviews/${id}`, {
           method: 'DELETE',
@@ -28,9 +29,12 @@ const Review = ({review, onchange, setOnchange}) => {
             <span>{review.user?.username}</span>
           </div>
           <div className="flex gap-2">
+            {currentUser && review.user_id === currentUser.id ?
             <button onClick={id => handleDelete(review.id)} aria-label="delete">
                 <img className="w-4" src={trashOutline} alt="icon" />
             </button>
+            : null
+        }
           </div>
       </div>
       <p>
