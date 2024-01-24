@@ -10,24 +10,27 @@ import ReservationLayout from './layouts/ReservationLayout'
 import RestaurantBookings from './pages/RestaurantBookings'
 import RestaurantRegistration from './pages/RestaurantRegistration'
 import RestaurantsProvider from './context/RestaurantsContext'
+import UserProvider from './context/UserContext'
 
 export default function App() {
   return (
-    <RestaurantsProvider>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/restaurants" element={<Restaurants />} />
-            <Route path="/restaurant/:id" element={<RestaurantDetail />} />
-            <Route path="/reservations" element={<ReservationLayout />}>
-              <Route index element={<Reservations />} />
-              <Route path='restaurant' element={<RestaurantBookings />} />
-            </Route>
-            <Route path='/register_restaurant' element={<RestaurantRegistration /> }/>
-          </Route>
-        </Routes>
-    </RestaurantsProvider>
+    <UserProvider>
+        <RestaurantsProvider>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/restaurants" element={<Restaurants />} />
+                <Route path="/restaurants/:id" element={<RestaurantDetail />} />
+                <Route path="/reservations" element={<ReservationLayout />}>
+                  <Route index element={<Reservations />} />
+                  <Route path='restaurant' element={<RestaurantBookings />} />
+                </Route>
+                <Route path='/register_restaurant' element={<RestaurantRegistration /> }/>
+              </Route>
+            </Routes>
+        </RestaurantsProvider>
+    </UserProvider>
   )
 }
