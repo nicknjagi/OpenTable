@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 export const RestaurantsContext = createContext()
@@ -6,6 +7,7 @@ export const RestaurantsContext = createContext()
 export default function RestaurantsProvider({children}){
     const [restaurants, setRestaurants] = useState([])
     const [onchange, setOnchange] = useState(false)
+    const navigate= useNavigate()
 
     const authToken = sessionStorage.getItem('authToken')
 
@@ -19,8 +21,25 @@ export default function RestaurantsProvider({children}){
         .then(data => setRestaurants(data))
     }
 
+    function addRestaurant(restaurant){
+        fetch('/restaurants', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${authToken && authToken}`,
+          },
+          body: JSON.stringify({...restaurant}),
+        })
+          .then((res) => res.json())
+          .then((response) => {
+            navigate('/restaurants')
+            setOnchange(!onchange)
+          })
+    }
+
     const contextData = {
-        restaurants
+        restaurants,
+        addRestaurant
     }
 
     return (
