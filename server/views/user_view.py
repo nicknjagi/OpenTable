@@ -1,4 +1,4 @@
-from models import db, User
+from models import db, User,Restaurant
 from flask import request, jsonify, Blueprint
 from werkzeug.security import generate_password_hash
 from flask_jwt_extended import  jwt_required, get_jwt_identity
@@ -90,3 +90,16 @@ def delete_user():
 
     else:
         return jsonify({"error":"User you are trying to delete is not found!"}), 404
+    
+
+@user_bp.route("/user/restaurant", methods=["GET"])
+@jwt_required()
+def get_user_restaurant():
+    current_user_id=get_jwt_identity()
+    user_restaurants= Restaurant.query.filter_by(owner_id=current_user_id).all()
+
+    if user_restaurants:
+        serialized_restaurants = [restaurant.to_dict() for restaurant in user_restaurants]
+        return jsonify(serialized_restaurants), 200
+    else:
+        return jsonify({"message": "You are yet to list a Restaurant"}), 404
