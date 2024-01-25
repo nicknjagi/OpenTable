@@ -25,7 +25,7 @@ A user can:
  - Can delete their accounts.
 
  ## Live server
- - You can view the web live on [Frontend]()
+ - You can view the web live on [Frontend](https://leafy-otter-831027.netlify.app/)
  - You can view the backend routes on [Backend](https://opentableweb.onrender.com)
 
  ## Known Bugs
