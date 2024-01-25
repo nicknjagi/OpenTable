@@ -27,7 +27,7 @@ const BookingForm = ({ onchange, setOnchange }) => {
     })
   }
   return (
-    <form onSubmit={handleSubmit} className="flex max-w-md flex-col gap-4">
+    <form onSubmit={handleSubmit} className="flex max-w-lg md:mx-auto flex-col gap-4">
       <h5 className="text-2xl font-semibold text-center">Make a reservation</h5>
       <div>
         <div className="mb-2 block">
