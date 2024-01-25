@@ -6,11 +6,11 @@ import { Link } from 'react-router-dom'
 const RestaurantBookings = () => {
     const [restaurants, setRestaurants] = useState({})
     const [isLoading, setIsLoading] = useState(true)
-    const {authToken} = useContext(UserContext)
+    const {authToken, apiEndpoint} = useContext(UserContext)
 
     useEffect(()=> {
         setIsLoading(true)
-        fetch('/user/restaurant', {
+        fetch(`${apiEndpoint}/user/restaurant`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${authToken && authToken}`,
@@ -23,7 +23,7 @@ const RestaurantBookings = () => {
             setRestaurants(data)
             setIsLoading(false)
         })
-    }, [authToken])
+    }, [authToken, apiEndpoint])
 
     if (isLoading)
       return <h2 className="text-2xl text-center mt-12">Loading...</h2>
