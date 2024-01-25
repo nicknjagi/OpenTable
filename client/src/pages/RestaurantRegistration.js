@@ -20,7 +20,7 @@ const RestaurantRegistration = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex max-w-md mx-auto px-4 md:px-6 mt-12 flex-col gap-4 border py-10 rounded-2xl border-zinc-300 shadow-xl">
+      className="flex max-w-xl mx-auto px-4 md:px-6 mt-12 flex-col gap-4 border py-10 rounded-2xl border-zinc-300 shadow-xl">
       <h2 className="text-2xl font-semibold text-center mb-6">
         Register your restaurant
       </h2>
