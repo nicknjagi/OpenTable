@@ -9,37 +9,37 @@ export default function Resetpassword() {
     
     const navigate = useNavigate()
 
-    function reset(username,email){
-        fetch("/reset_password",{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body: JSON.stringify({username,email})
-        })
-        .then((res)=> res.json())
-        .then(response =>{
-            if(response.message){
-                navigate("/login")
-                Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: response.message,
-                    showConfirmButton: false,
-                    timer: 1500
-                    });
-            }
-            else{
-                Swal.fire({
-                    position: "center",
-                    icon: "error",
-                    title: response.error,
-                    showConfirmButton: false,
-                    timer: 1500
-                    });
-            }
-        })
-    }
+    // function reset(username,email){
+    //     fetch("/reset_password",{
+    //         method:"POST",
+    //         headers:{
+    //             "Content-Type":"application/json"
+    //         },
+    //         body: JSON.stringify({username,email})
+    //     })
+    //     .then((res)=> res.json())
+    //     .then(response =>{
+    //         if(response.message){
+    //             navigate("/login")
+    //             Swal.fire({
+    //                 position: "center",
+    //                 icon: "success",
+    //                 title: response.message,
+    //                 showConfirmButton: false,
+    //                 timer: 1500
+    //                 });
+    //         }
+    //         else{
+    //             Swal.fire({
+    //                 position: "center",
+    //                 icon: "error",
+    //                 title: response.error,
+    //                 showConfirmButton: false,
+    //                 timer: 1500
+    //                 });
+    //         }
+    //     })
+    // }
 
     function handleSubmit(e) {
         e.preventDefault()
