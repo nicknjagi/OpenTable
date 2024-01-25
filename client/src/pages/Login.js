@@ -19,7 +19,7 @@ const Login = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex max-w-md mx-auto mt-24 px-4 flex-col gap-4">
+      className="flex max-w-md mx-auto mt-24 px-4 md:px-6 flex-col gap-4 border py-10 rounded-2xl border-zinc-300 shadow-xl">
       <h3 className="text-2xl text-center">Login</h3>
       <div>
         <div className="mb-2 block">

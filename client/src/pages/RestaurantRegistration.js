@@ -18,7 +18,9 @@ const RestaurantRegistration = () => {
     }
 
   return (
-    <form onSubmit={handleSubmit} className="flex max-w-md mx-auto px-4 mt-12 flex-col gap-4">
+    <form
+      onSubmit={handleSubmit}
+      className="flex max-w-md mx-auto px-4 md:px-6 mt-12 flex-col gap-4 border py-10 rounded-2xl border-zinc-300 shadow-xl">
       <h2 className="text-2xl font-semibold text-center mb-6">
         Register your restaurant
       </h2>
@@ -26,37 +28,43 @@ const RestaurantRegistration = () => {
         <div className="mb-2 block">
           <Label htmlFor="name" value="Restaurant name" />
         </div>
-        <TextInput id="name" name='name' type="text" required />
+        <TextInput id="name" name="name" type="text" required />
       </div>
       <div>
         <div className="mb-2 block">
           <Label htmlFor="phone" value="Phone" />
         </div>
-        <TextInput id="phone" name='phone_no' type="text" required />
+        <TextInput id="phone" name="phone_no" type="text" required />
       </div>
       <div className="max-w-md">
         <div className="mb-2 block">
           <Label htmlFor="description" value="Description" />
         </div>
-        <Textarea id="description" name='description' required rows={4} />
+        <Textarea id="description" name="description" required rows={4} />
       </div>
       <div>
         <div className="mb-2 block">
           <Label htmlFor="image" value="Image" />
         </div>
-        <TextInput id="image" name='restaurant_img' type="text" required />
+        <TextInput id="image" name="restaurant_img" type="text" required />
       </div>
       <div>
         <div className="mb-2 block">
           <Label htmlFor="location" value="Location" />
         </div>
-        <TextInput id="location" name='location' type="text" />
+        <TextInput id="location" name="location" type="text" />
       </div>
       <div>
         <div className="mb-2 block">
           <Label htmlFor="capacity" value="Capacity" />
         </div>
-        <TextInput id="capacity" name='capacity' type="number" min='1' required />
+        <TextInput
+          id="capacity"
+          name="capacity"
+          type="number"
+          min="1"
+          required
+        />
       </div>
       <Button gradientDuoTone="cyanToBlue" type="submit">
         Submit
