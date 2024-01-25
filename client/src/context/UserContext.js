@@ -81,6 +81,8 @@ export default function UserProvider({ children }) {
   function logout() {
     sessionStorage.removeItem('authToken')
     setCurrentUser(null)
+    setAuthToken(null)
+    setOnchange(!onchange)
   }
 
   // Get Authenticated user
