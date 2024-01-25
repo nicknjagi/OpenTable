@@ -1,6 +1,7 @@
 from models import db, Booking
 from flask import request, jsonify, Blueprint
 from flask_jwt_extended import  jwt_required, get_jwt_identity
+from datetime import datetime
 
 booking_bp = Blueprint('booking_bp', __name__)
 
@@ -18,8 +19,8 @@ def create_booking():
     new_booking = Booking(
         user_id=user_id,
         restaurant_id=data["restaurant_id"],
-        booking_date=data["booking_date"],
-        booking_time=data["booking_time"],
+        booking_date=datetime.strptime(data["booking_date"], "%B %d, %Y").date(),
+        booking_time=datetime.strptime(data["booking_time"], "%H:%M").time(),
         party_size=data["party_size"],
         status="pending"  # the default status
     )
