@@ -37,7 +37,10 @@ def authenticated_user():
             'id': user.id,
             'username':user.username,
             'email': user.email,
-            'profile_img':user.profile_img
+            'profile_img':user.profile_img,
+            'contact_info':user.contact_info,
+            'first_name':user.first_name,
+            'last_name':user.last_name
         }
         return jsonify(user_data), 200
     else:
