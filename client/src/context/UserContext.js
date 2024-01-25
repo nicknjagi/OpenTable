@@ -105,7 +105,7 @@ export default function UserProvider({ children }) {
         })
     }
   }, [authToken, onchange])
-console.log(currentUser);
+  
   // context data
   const contextData = {
     addUser,
