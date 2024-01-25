@@ -75,7 +75,7 @@ def update_user():
         setattr(user,key,value)
     db.session.commit()
 
-    return jsonify({"message":"User update succesfully"}),200
+    return jsonify({"message":"User updated succesfully"}),200
 
 #delete user
 @user_bp.route("/users", methods=["DELETE"])
