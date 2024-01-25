@@ -1,17 +1,67 @@
 import React, { useContext, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
+import Swal from 'sweetalert2';
+import { Button } from 'flowbite-react';
 
 const Profile = () => {
-    const { currentUser, setCurrentUser } = useContext(UserContext);
+    const { currentUser, setCurrentUser, logout } = useContext(UserContext);
+    function deleteProfile(){
+        fetch(`/users`,{
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${currentUser.token}`,
+            }
+        })
+       .then(data => {
+            console.log('Success:', data);
+            Swal.fire({
+                title: 'Deleted!',
+                text: 'Your profile has been deleted.',
+                icon: 'success'
+            }).then(() => {
+                logout();
+            });
+        }).catch((error) => {
+            console.error('Error:', error);
+            Swal("Error!", "There was a problem deleting the profile.", "error");
+        });
+    }
 
     const { id } = useParams();
-        return (
-            <div className="container mx-auto mt-5 text-gray-600">
-                <div className="flex flex-wrap -mx-5">
-                    <div className="w-full px-5">
-                        <div className="my-5">
-                            <h3 className="text-lg font-semibold">My Profile</h3>
+    return (
+        <div className="container mx-auto mt-5 text-gray-600">
+            <div className="flex flex-wrap -mx-5">
+                <div className="w-full px-5">
+                    <div className="my-5">
+                    <div className="flex items-center space-x-4">
+    <h3 className="text-lg font-semibold">My Profile</h3>
+    <Link to={'/update_profile'}>
+        <Button gradientDuoTone="cyanToBlue">Update Profile</Button>
+    </Link>
+    <button
+        className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'
+        onClick={() => {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: 'gray',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteProfile();
+                }
+            });
+        }}
+    >
+        Delete
+    </button>
+</div>
+
                             <hr />
                         </div>
                         <form className="file-upload">
