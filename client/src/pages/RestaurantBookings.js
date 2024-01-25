@@ -20,7 +20,6 @@ const RestaurantBookings = () => {
                 return res.json()
             }
         }).then(data => {
-            console.log(data);
             setRestaurants(data)
             setIsLoading(false)
         })
@@ -30,8 +29,8 @@ const RestaurantBookings = () => {
       return <h2 className="text-2xl text-center mt-12">Loading...</h2>
 
     return (
-      <div className="my-12 max-w-lg flex flex-col gap-4 border border-zinc-300 p-4 rounded">
-        {restaurants.length > 0 ? (
+      <div className="my-12 max-w-xl flex flex-col gap-4 border border-zinc-300 p-4 rounded">
+        {restaurants?.length > 0 ? (
           restaurants.map((restaurant) => {
             return (
               <section>

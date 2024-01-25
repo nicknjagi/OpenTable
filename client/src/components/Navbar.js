@@ -40,7 +40,7 @@ export default function Nav() {
             <div className="relative">
               <button onClick={handleClick}>
                 <img
-                  className="w-8"
+                  className="w-10 h-10 rounded-full object-cover object-top"
                   src={currentUser.profile_img || personOutline}
                   alt="icon"
                 />
@@ -48,12 +48,10 @@ export default function Nav() {
               {isVisible && (
                 <ListGroup className="w-24 absolute right-0 z-30">
                   <ListGroup.Item>
-                    <NavLink to="/profile">
-                      Profile
-                    </NavLink>
+                    <NavLink to="/profile">Profile</NavLink>
                   </ListGroup.Item>
                   <ListGroup.Item onClick={logout}>
-                    <NavLink to="/login">Logout</NavLink>
+                    <NavLink onClick={handleClick} to="/login">Logout</NavLink>
                   </ListGroup.Item>
                 </ListGroup>
               )}
