@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_cors import CORS
 from models import db,User,Restaurant,Booking,Review
 from flask_cors import CORS
 from views import *
@@ -19,7 +20,7 @@ jwt = JWTManager()
 app.config["JWT_SECRET_KEY"] = "fjhjdjhfiskyfvdgvydklvsrfl"
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
 jwt.init_app(app)
-
+CORS(app)
 
 app.register_blueprint(user_bp)
 app.register_blueprint(restaurant_bp)
