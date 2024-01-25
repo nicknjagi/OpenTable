@@ -69,8 +69,8 @@ def update_user(id):
         return jsonify({"message":"User not found"}),404
     
     data=request.get_json()
-    if 'password' in data:
-        data['passwaord']= generate_password_hash(data['password'])
+    
+    data.pop('password', None)
 
     for key, value in data.items():
         setattr(user,key,value)
