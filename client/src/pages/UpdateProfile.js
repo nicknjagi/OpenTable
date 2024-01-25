@@ -5,7 +5,7 @@ import Swal from "sweetalert2"
 import { useNavigate } from 'react-router-dom';
 
 export default function UpdateProfile() {
-const { currentUser, authToken, setOnchange, onchange } = useContext(UserContext);
+const { currentUser, authToken, setOnchange, onchange, apiEndpoint } = useContext(UserContext);
 
 const [user, setUser] = useState({
   username: currentUser ? currentUser.username : '',
@@ -30,8 +30,8 @@ const handleSubmit = (event) => {
       last_name: event.target.lastname.value
     });
   
-    fetch(`/users`, {
-      method: 'PUT',
+    fetch(`${apiEndpoint}/users`, {
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${authToken}`,
