@@ -57,14 +57,11 @@ def get_user(id):
         return jsonify({"message": "User not found"}), 404
 
 #update user
-@user_bp.route("/users/<int:id>", methods=['PUT'])
+@user_bp.route("/users", methods=['PUT'])
 @jwt_required()
-def update_user(id):
+def update_user():
     current_user_id= get_jwt_identity()
-    if current_user_id != id:
-        return jsonify({"message":"Unauthorized"}),401
-    
-    user=User.query.get(id)
+    user=User.query.get(current_user_id)
     if not user:
         return jsonify({"message":"User not found"}),404
     
