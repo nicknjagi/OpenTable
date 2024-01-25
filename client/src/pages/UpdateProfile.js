@@ -7,28 +7,12 @@ import { useNavigate } from 'react-router-dom';
 export default function UpdateProfile() {
 const { currentUser, authToken, setOnchange, onchange, apiEndpoint } = useContext(UserContext);
 
-const [user, setUser] = useState({
-  username: currentUser ? currentUser.username : '',
-  email: currentUser ? currentUser.email : '',
-  profile_img: currentUser ? currentUser.profile_img : '',
-  contact_info: currentUser ? currentUser.contact_info : '',
-  first_name: currentUser ? currentUser.first_name : '',
-  last_name: currentUser ? currentUser.last_name : ''
-});
 const navigate = useNavigate()
 
 const handleSubmit = (event) => {
     event.preventDefault();
-  
-    setUser({
-      id : currentUser.id,
-      username: event.target.username.value,
-      email: event.target.email.value,
-      profile_img: event.target.profilepicture.value,
-      contact_info: event.target.phone.value,
-      first_name: event.target.firstname.value,
-      last_name: event.target.lastname.value
-    });
+     const formData = new FormData(event.currentTarget)
+     const user = Object.fromEntries(formData)
   
     fetch(`${apiEndpoint}/users`, {
       method: 'PATCH',
@@ -49,8 +33,8 @@ const handleSubmit = (event) => {
     .catch(error => {
       Swal.fire("Error", error.message, "error");
     });
-    console.log(user);
   };
+
   return (
     <div>
       <form
@@ -89,7 +73,7 @@ const handleSubmit = (event) => {
           </div>
           <TextInput
             id="firstname"
-            name="firstname"
+            name="first_name"
             type="text"
             defaultValue={currentUser ? currentUser.first_name : ''}
             placeholder="Type first name here"
@@ -101,7 +85,7 @@ const handleSubmit = (event) => {
           </div>
           <TextInput
             id="lastname"
-            name="lastname"
+            name="last_name"
             type="text"
             defaultValue={currentUser ? currentUser.last_name : ''}
             placeholder="Type last name here"
@@ -113,7 +97,7 @@ const handleSubmit = (event) => {
           </div>
           <TextInput
             id="phone"
-            name="phone"
+            name="contact_info"
             type="text"
             defaultValue={currentUser ? currentUser.contact_info : ''}
             placeholder="Type phone number here"
@@ -125,7 +109,7 @@ const handleSubmit = (event) => {
           </div>
           <TextInput
             id="profilepicture"
-            name="profilepicture"
+            name="profile_img"
             type="url"
             defaultValue={currentUser ? currentUser.profile_img : ''}
             placeholder="Paste image link here"
