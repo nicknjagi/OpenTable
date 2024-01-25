@@ -1,5 +1,5 @@
 import React, { useContext, useEffect} from 'react'
-import { useParams, Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/UserContext'
 import Swal from 'sweetalert2'
 import { Button } from 'flowbite-react'
@@ -14,7 +14,7 @@ const Profile = () => {
             navigate('/')
           }
 
-    },[onchange, currentUser])
+    },[onchange, currentUser, navigate])
   function deleteProfile() {
     fetch(`/users`, {
       method: 'DELETE',

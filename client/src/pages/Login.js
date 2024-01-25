@@ -31,7 +31,13 @@ const Login = () => {
         <div className="mb-2 block">
           <Label htmlFor="password" value="Password" />
         </div>
-        <TextInput id="password" name="password" type="password" required />
+        <TextInput
+          id="password"
+          name="password"
+          type="password"
+          autocomplete="on"
+          required
+        />
       </div>
       <Button gradientDuoTone="cyanToBlue" type="submit">
         Login
