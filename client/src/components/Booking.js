@@ -3,8 +3,8 @@ import peopleOutline from '../assets/images/people-outline.svg'
 
 const Booking = ({booking}) => {
   return (
-    <li className="border border-zinc-300 py-2 px-4 max-w-lg rounded-md">
-      <div className="flex gap-4 justify-between items-center my-2">
+    <li className="border border-zinc-300 py-2 px-4 max-w-xl rounded-md">
+      <div className="flex flex-wrap gap-4 justify-between items-center my-2">
         <h3 className="text-lg font-semibold">
           {booking?.restaurant?.name} Reservation no: 00{booking?.id}
         </h3>

@@ -23,7 +23,6 @@ const Reservations = () => {
           .then((data) => {
             setBookings(data)
             setIsLoading(false)
-            console.log(data)
           })
     },[])
 
@@ -31,10 +30,16 @@ const Reservations = () => {
         return <h2 className="text-2xl text-center mt-12">Loading...</h2>
 
   return (
-    <ul className='my-12 flex flex-col gap-4'>
-      {bookings?.map(booking => {
-        return <Booking key={booking.id} booking={booking}/>
-      })}
+    <ul className="my-12 flex flex-col flex-wrap gap-4">
+      {bookings?.length > 0 ? (
+        bookings?.map((booking) => {
+          return <Booking key={booking.id} booking={booking} />
+        })
+      ) : (
+        <h2 className="text-2xl text-center mt-12">
+          No reservations available.
+        </h2>
+      )}
     </ul>
   )
 }
