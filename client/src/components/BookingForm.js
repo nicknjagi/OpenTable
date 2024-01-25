@@ -5,7 +5,7 @@ import { UserContext } from '../context/UserContext'
 import Swal from 'sweetalert2'
 
 const BookingForm = ({ onchange, setOnchange }) => {
-  const { authToken } = useContext(UserContext)
+  const { authToken, apiEndpoint } = useContext(UserContext)
   const { id } = useParams()
   const navigate = useNavigate()
 
@@ -13,10 +13,11 @@ const BookingForm = ({ onchange, setOnchange }) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
     const dataObj = Object.fromEntries(formData)
+
     if (!authToken){
         navigate('/login')
     }
-    fetch('/bookings', {
+    fetch(`${apiEndpoint}/bookings`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
