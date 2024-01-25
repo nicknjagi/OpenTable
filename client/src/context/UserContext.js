@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 export const UserContext = createContext()
 
@@ -25,9 +26,21 @@ export default function UserProvider({ children }) {
     })
       .then((res) =>{
         if(res.ok){
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Your account has been created, login.',
+              showConfirmButton: false,
+              timer: 1500,
+            })
             navigate('/login')
         }
-        res.json()
+        else if (res.status === 400){
+             Swal.fire({
+               icon: 'error',
+               text: 'Username or email already exists!',
+             })
+        }
     })
       .catch(err => console.log(err))
   }
@@ -46,11 +59,20 @@ export default function UserProvider({ children }) {
         if (response.access_token) {
           sessionStorage.setItem('authToken', response.access_token)
           setAuthToken(response.access_token)
-
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Login successful.',
+                showConfirmButton: false,
+                timer: 1500,
+            })
           navigate('/')
           setOnchange(!onchange)
         } else {
-            console.log('error logging in');
+            Swal.fire({
+              icon: 'error',
+              text: response.error,
+            })
         }
       })
   }
@@ -81,8 +103,6 @@ export default function UserProvider({ children }) {
         })
     }
   }, [authToken, onchange])
-
-  console.log('current user', currentUser)
 
   // context data
   const contextData = {
