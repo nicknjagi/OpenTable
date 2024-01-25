@@ -2,6 +2,7 @@ import React, { useContext} from 'react'
 import { Button, Label, TextInput } from 'flowbite-react'
 import {Link} from 'react-router-dom'
 import { UserContext } from '../context/UserContext'
+import Swal from 'sweetalert2'
 
 const Signup = () => {
     const {addUser} = useContext(UserContext)
@@ -15,6 +16,11 @@ const Signup = () => {
         const password2 = formData.get('password2')
         if(password !== password2){
             console.log("password error");
+            Swal.fire({
+              icon: 'error',
+              text: 'Passwords do not match!'
+            })
+            return
         }
         if(password !== "" && username !== "" && email !== ''){
             addUser(username, email, password)
