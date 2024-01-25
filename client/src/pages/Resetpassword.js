@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Button, Label, TextInput } from 'flowbite-react'
 import {Link} from 'react-router-dom'
 import Swal from "sweetalert2"
 import {useNavigate} from "react-router-dom"
+import { UserContext } from '../context/UserContext'
 
 
 export default function Resetpassword() {
-    
+    const {apiEndpoint} = useContext(UserContext)
     const navigate = useNavigate()
 
     // function reset(username,email){
@@ -55,7 +56,7 @@ export default function Resetpassword() {
                 new_password: new_password,
             };
 
-            fetch("/reset_password", {
+            fetch(`${apiEndpoint}/reset_password`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

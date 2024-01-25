@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import peopleOutline from '../assets/images/people-outline.svg'
 import locationOutline from '../assets/images/location-outline.svg'
 import callOutline from '../assets/images/call-outline.svg'
@@ -6,19 +6,21 @@ import Review from '../components/Review'
 import BookingForm from '../components/BookingForm'
 import { Link, useParams } from 'react-router-dom'
 import AddReviewForm from '../components/AddReviewForm'
+import { UserContext } from '../context/UserContext'
 
 const RestaurantDetail = () => {
   const [restaurant, setRestaurant] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(true)
   const [onchange, setOnchange] = useState(false)
+  const {apiEndpoint} = useContext(UserContext)
 
   const {id}= useParams()
 
   useEffect(()=> {
     setIsLoading(true)
     setError(false)
-    fetch(`/restaurants/${id}`)
+    fetch(`${apiEndpoint}/restaurants/${id}`)
       .then((res) => {
         if(res.status === 404){
             setError(true)
@@ -30,7 +32,7 @@ const RestaurantDetail = () => {
          setRestaurant(data)
          setIsLoading(false)
       })
-  },[onchange, id])
+  },[onchange, id, apiEndpoint])
 
   if (isLoading) return <h2 className='text-2xl text-center mt-12'>Loading...</h2>
   

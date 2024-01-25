@@ -5,7 +5,7 @@ import Swal from 'sweetalert2'
 import { Button } from 'flowbite-react'
 
 const Profile = () => {
-  const { currentUser, onchange, authToken, logout } = useContext(UserContext)
+  const { currentUser, onchange, authToken, logout, apiEndpoint } = useContext(UserContext)
 
   const navigate = useNavigate()
 
@@ -16,7 +16,7 @@ const Profile = () => {
 
     },[onchange, currentUser, navigate])
   function deleteProfile() {
-    fetch(`/users`, {
+    fetch(`${apiEndpoint}/users`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

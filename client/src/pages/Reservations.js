@@ -5,11 +5,12 @@ import { UserContext } from '../context/UserContext'
 const Reservations = () => {
     const [bookings, setBookings] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-    const {authToken} = useContext(UserContext)
+    const {authToken, apiEndpoint} = useContext(UserContext)
+    
 
     useEffect(() => {
         setIsLoading(true)
-        fetch('/bookings', {
+        fetch(`${apiEndpoint}/bookings`, {
           method:"GET",
           headers: {
             Authorization: `Bearer ${authToken && authToken}`,
@@ -24,7 +25,7 @@ const Reservations = () => {
             setBookings(data)
             setIsLoading(false)
           })
-    },[authToken])
+    },[authToken, apiEndpoint])
 
     if (isLoading)
         return <h2 className="text-2xl text-center mt-12">Loading...</h2>
