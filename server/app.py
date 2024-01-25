@@ -8,7 +8,7 @@ from views import *
 from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://opentable_xpdp_user:CqcqzRAjdnaT9YhUbhvY4j4XZgytxKli@dpg-cmp3cmqcn0vc73cks5rg-a.oregon-postgres.render.com/opentable_xpdp"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://tabledb_user:rknm0aGITC5JDYsdJg6EDW4qOGBn32Bm@dpg-cmp6c77qd2ns738otl0g-a.oregon-postgres.render.com/tabledb"
 
 CORS(app)
 
