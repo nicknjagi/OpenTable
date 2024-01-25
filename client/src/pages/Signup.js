@@ -22,13 +22,21 @@ const Signup = () => {
     }
     
   return (
-    <form onSubmit={handleSubmit} className="flex max-w-md flex-col gap-4 mx-auto my-16 px-4">
+    <form
+      onSubmit={handleSubmit}
+      className="flex max-w-md flex-col gap-4 mx-auto my-16 px-4 md:px-6 border py-10 rounded-2xl border-zinc-300 shadow-xl">
       <h3 className="text-2xl text-center">Create Account</h3>
       <div>
         <div className="mb-2 block">
           <Label htmlFor="username" value="Username" />
         </div>
-        <TextInput id="username" name='username' type="text" placeholder="username" required/>
+        <TextInput
+          id="username"
+          name="username"
+          type="text"
+          placeholder="username"
+          required
+        />
       </div>
       <div>
         <div className="mb-2 block">
@@ -37,7 +45,7 @@ const Signup = () => {
         <TextInput
           id="email1"
           type="email"
-          name='email'
+          name="email"
           placeholder="name@flowbite.com"
           required
         />
@@ -46,13 +54,13 @@ const Signup = () => {
         <div className="mb-2 block">
           <Label htmlFor="password" value="Password" />
         </div>
-        <TextInput id="password" name='password' type="password" required/>
+        <TextInput id="password" name="password" type="password" required />
       </div>
       <div>
         <div className="mb-2 block">
           <Label htmlFor="password2" value="Confirm password" />
         </div>
-        <TextInput id="password2" name='password2' type="password" required/>
+        <TextInput id="password2" name="password2" type="password" required />
       </div>
       <Button gradientDuoTone="cyanToBlue" type="submit">
         Signup

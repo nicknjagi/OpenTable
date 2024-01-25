@@ -40,9 +40,9 @@ const RestaurantDetail = () => {
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4">
       <h2 className="text-3xl font-semibold my-12">{restaurant.name}</h2>
-      <div className="flex flex-col md:flex-row gap-6 md:gap-10 lg:gap-20">
+      <div className="flex flex-col md:flex-row gap-6 md:gap-10 xl:gap-20">
         <div className="w-full max-w-[670px]">
-          <img className='rounded-2xl' src={restaurant.restaurant_img} alt={restaurant.name}/>
+          <img className='rounded-2xl max-h-[600px] w-full object-cover' src={restaurant.restaurant_img} alt={restaurant.name}/>
           <h3 className="mt-6 mb-4 text-2xl">About</h3>
           <p>{restaurant.description}</p>
           <div className="flex flex-wrap flex-col md:flex-row gap-6 mt-4">
