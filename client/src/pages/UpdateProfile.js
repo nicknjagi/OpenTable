@@ -32,7 +32,7 @@ const handleSubmit = (event) => {
       
     });
   
-    fetch(`/users/${currentUser.id}`, {
+    fetch(`/users`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
