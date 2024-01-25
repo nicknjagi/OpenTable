@@ -76,18 +76,15 @@ def update_user():
     return jsonify({"message":"User update succesfully"}),200
 
 #delete user
-@user_bp.route("/users/<int:id>", methods=["DELETE"])
+@user_bp.route("/users", methods=["DELETE"])
 @jwt_required()
-def delete_user(id):
+def delete_user():
     current_user_id= get_jwt_identity()
-    if current_user_id != id:
-        return jsonify({"message":"Unauthorized"}),401
-    
-    user=User.query.get(id)
-    if not user:
-        return jsonify({"message":"User not found"}),404
-    
-    db.session.delete(user)
-    db.session.commit()
+    user=User.query.get(current_user_id)
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify({"success": "User deleted successfully"}), 200
 
-    return jsonify({"message":"User deleted succesfully"}), 200
+    else:
+        return jsonify({"error":"User you are trying to delete is not found!"}), 404
