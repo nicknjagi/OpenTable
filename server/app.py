@@ -3,12 +3,15 @@ from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from models import db,User,Restaurant,Booking,Review
-
+from flask_cors import CORS
 from views import *
 from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://opentable_xpdp_user:CqcqzRAjdnaT9YhUbhvY4j4XZgytxKli@dpg-cmp3cmqcn0vc73cks5rg-a.oregon-postgres.render.com/opentable_xpdp"
+
+CORS(app)
+
 db.init_app(app)
 migrate = Migrate(app, db)
 
