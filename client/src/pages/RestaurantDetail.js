@@ -7,44 +7,70 @@ import BookingForm from '../components/BookingForm'
 import { Link, useParams } from 'react-router-dom'
 import AddReviewForm from '../components/AddReviewForm'
 import { UserContext } from '../context/UserContext'
+import { RestaurantsContext } from '../context/RestaurantsContext'
+import { Button } from 'flowbite-react'
+import Swal from 'sweetalert2'
 
 const RestaurantDetail = () => {
   const [restaurant, setRestaurant] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(true)
   const [onchange, setOnchange] = useState(false)
-  const {apiEndpoint} = useContext(UserContext)
+  const { apiEndpoint, currentUser } = useContext(UserContext)
+  const {currentRestaurant, setCurrentRestaurant, deleteRestaurant} = useContext(RestaurantsContext)
 
-  const {id}= useParams()
+  const { id } = useParams()
 
-  useEffect(()=> {
+  useEffect(() => {
     setIsLoading(true)
     setError(false)
     fetch(`${apiEndpoint}/restaurants/${id}`)
       .then((res) => {
-        if(res.status === 404){
-            setError(true)
-            return
+        if (res.status === 404) {
+          setError(true)
+          return
         }
         return res.json()
       })
-      .then((data) =>{
-         setRestaurant(data)
-         setIsLoading(false)
+      .then((data) => {
+        setRestaurant(data)
+        setCurrentRestaurant(data)
+        setIsLoading(false)
       })
-  },[onchange, id, apiEndpoint])
+  }, [onchange, id, apiEndpoint, setCurrentRestaurant])
 
-  if (isLoading) return <h2 className='text-2xl text-center mt-12'>Loading...</h2>
-  
-  if (error) return <h2 className='text-2xl text-center mt-12'>Restaurant not found</h2>
+  function handleDelete(){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: 'gray',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteRestaurant()
+      }
+    })
+  }
 
+  if (isLoading)
+    return <h2 className="text-2xl text-center mt-12">Loading...</h2>
+
+  if (error)
+    return <h2 className="text-2xl text-center mt-12">Restaurant not found</h2>
 
   return (
     <section className="w-full max-w-[1280px] mx-auto px-4">
       <h2 className="text-3xl font-semibold my-12">{restaurant.name}</h2>
       <div className="flex flex-col md:flex-row gap-6 md:gap-10 xl:gap-20">
         <div className="w-full max-w-[670px]">
-          <img className='rounded-2xl max-h-[600px] w-full object-cover' src={restaurant.restaurant_img} alt={restaurant.name}/>
+          <img
+            className="rounded-2xl max-h-[600px] w-full object-cover"
+            src={restaurant.restaurant_img}
+            alt={restaurant.name}
+          />
           <h3 className="mt-6 mb-4 text-2xl">About</h3>
           <p>{restaurant.description}</p>
           <div className="flex flex-wrap flex-col md:flex-row gap-6 mt-4">
@@ -65,7 +91,21 @@ const RestaurantDetail = () => {
             </p>
           </div>
         </div>
-        <BookingForm onchange={onchange} setOnchange={setOnchange} />
+        <div>
+          {currentRestaurant.owner_id !== currentUser.id && (
+            <BookingForm onchange={onchange} setOnchange={setOnchange} />
+          )}
+          {currentRestaurant.owner_id === currentUser.id && (
+            <div className="flex gap-4 mt-5">
+              <Button gradientDuoTone="cyanToBlue">
+                <Link to="/edit_restaurant">Update</Link>
+              </Button>
+              <button onClick={handleDelete} className="px-4 py-2 rounded-lg text-white bg-red-500 hover:bg-red-600">
+                Delete
+              </button>
+            </div>
+          )}
+        </div>
       </div>
       <div className="mt-12 w-full max-w-[800px] ">
         <h5 className="text-xl text-center mb-8">Reviews</h5>

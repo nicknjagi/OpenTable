@@ -77,10 +77,10 @@ def update_restaurant(id):
         description = data.get('description')
         location = data.get('location')
         capacity = data.get('capacity')
-
+        
         check_name = Restaurant.query.filter_by(name=name).first()
 
-        if check_name:
+        if check_name and id != check_name.id:
             return jsonify({"error": "Restaurant name already exists !"})
         
         else:

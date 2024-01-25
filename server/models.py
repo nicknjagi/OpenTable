@@ -33,7 +33,7 @@ class Restaurant(db.Model, SerializerMixin):
     restaurant_img = db.Column(db.String, nullable=True)
     location = db.Column(db.String(255))
     capacity = db.Column(db.Integer)
-    owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    owner_id = db.Column(db.Integer, db.ForeignKey('users.id',ondelete="CASCADE"), nullable=False)
 
     bookings = db.relationship('Booking', backref=db.backref('restaurant', lazy=True),cascade='all, delete-orphan')
     reviews = db.relationship('Review', backref=db.backref('restaurant', lazy=True), cascade='all, delete-orphan')
@@ -45,8 +45,8 @@ class Booking(db.Model, SerializerMixin):
 
     serialize_rules = ('-user',)
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id',ondelete="CASCADE"), nullable=False)
+    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id',ondelete="CASCADE"), nullable=False)
     booking_date = db.Column(db.Date, nullable=False)
     booking_time = db.Column(db.Time, nullable=False)
     party_size = db.Column(db.Integer, nullable=False)
@@ -58,8 +58,8 @@ class Review(db.Model, SerializerMixin):
     
     serialize_rules = ('-restaurant','-user.reviews')
     id = db.Column(db.Integer, primary_key=True)
-    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id',ondelete="CASCADE"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id',ondelete="CASCADE"), nullable=False)
     rating = db.Column(db.Integer, nullable=False)
     comment = db.Column(db.Text)
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)

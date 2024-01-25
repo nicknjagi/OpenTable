@@ -185,12 +185,12 @@ const Profile = () => {
                       Profile photo
                     </h4>
                     <div className="text-center">
-                      <div className="h-52 pt-4 w-64 mx-auto border border-gray-300 bg-white rounded">
+                      <div className="h-64 w-64 mx-auto border border-gray-300 bg-white rounded">
                         {currentUser && currentUser.profile_img ? (
                           <img
                             src={currentUser.profile_img}
                             alt="Profile"
-                            className="object-cover  w-64 rounded"
+                            className="object-cover object-center w-full h-full rounded"
                           />
                         ) : (
                           <div className="square position-relative display-2 mb-3">
