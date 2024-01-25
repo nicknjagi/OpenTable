@@ -9,8 +9,11 @@ export default function Nav() {
     const {currentUser, logout} = useContext(UserContext)
     const [isVisible, setIsVisible] = useState(false)
 
-    function handleClick(){
-        setIsVisible(!isVisible)
+    function handleEnter(){
+        setIsVisible(true)
+    }
+    function handleLeave(){
+        setIsVisible(false)
     }
 
   return (
@@ -38,20 +41,20 @@ export default function Nav() {
           </NavLink>
           {currentUser ? (
             <div className="relative">
-              <button onClick={handleClick}>
-                <img
+              <button onClick={handleEnter}>
+                <img onMouseEnter={handleEnter} onMouseLeave={handleLeave}
                   className="w-10 h-10 rounded-full object-cover object-top"
                   src={currentUser.profile_img || personOutline}
                   alt="icon"
                 />
               </button>
               {isVisible && (
-                <ListGroup className="w-24 absolute right-0 z-30">
+                <ListGroup onMouseOver={handleEnter} onMouseLeave={handleLeave} className="w-24 absolute top-10 right-0 z-30">
                   <ListGroup.Item>
                     <NavLink to="/profile">Profile</NavLink>
                   </ListGroup.Item>
                   <ListGroup.Item onClick={logout}>
-                    <NavLink onClick={handleClick} to="/login">Logout</NavLink>
+                    <NavLink onClick={handleLeave} to="/login">Logout</NavLink>
                   </ListGroup.Item>
                 </ListGroup>
               )}
