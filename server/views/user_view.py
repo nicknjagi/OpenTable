@@ -59,7 +59,7 @@ def get_user():
         return jsonify({"message": "User not found"}), 404
 
 #update user
-@user_bp.route("/users", methods=['PUT'])
+@user_bp.route("/users", methods=['PATCH'])
 @jwt_required()
 def update_user():
     current_user_id= get_jwt_identity()
