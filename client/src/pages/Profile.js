@@ -14,7 +14,7 @@ const Profile = () => {
             navigate('/')
           }
 
-    },[onchange])
+    },[onchange, currentUser])
   function deleteProfile() {
     fetch(`/users`, {
       method: 'DELETE',
@@ -46,7 +46,6 @@ const Profile = () => {
     console.log([...formData.entries()]);
   }
 
-  const { id } = useParams()
   return (
     <div className="container max-w-[1280px] px-6 mx-auto mt-5 text-gray-600">
       <div className="flex flex-wrap -mx-5">

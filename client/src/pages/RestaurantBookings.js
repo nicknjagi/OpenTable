@@ -23,7 +23,7 @@ const RestaurantBookings = () => {
             setRestaurants(data)
             setIsLoading(false)
         })
-    }, [])
+    }, [authToken])
 
     if (isLoading)
       return <h2 className="text-2xl text-center mt-12">Loading...</h2>
