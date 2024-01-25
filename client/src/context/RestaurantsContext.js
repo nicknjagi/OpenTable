@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 export const RestaurantsContext = createContext()
@@ -34,10 +35,18 @@ export default function RestaurantsProvider({children}){
           },
           body: JSON.stringify({...restaurant}),
         })
-          .then((res) => res.json())
-          .then((response) => {
-            navigate('/restaurants')
-            setOnchange(!onchange)
+          .then((res) =>{
+            if(res.ok){
+                Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'Restaurant has been registered successfully.',
+                  showConfirmButton: false,
+                  timer: 1500,
+                })
+                navigate('/restaurants')
+                setOnchange(!onchange)
+            }
           })
     }
 

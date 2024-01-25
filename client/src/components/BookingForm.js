@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { Button, Datepicker, Label, TextInput } from 'flowbite-react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { UserContext } from '../context/UserContext'
+import Swal from 'sweetalert2'
 
 const BookingForm = ({ onchange, setOnchange }) => {
   const { authToken } = useContext(UserContext)
@@ -12,6 +13,9 @@ const BookingForm = ({ onchange, setOnchange }) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
     const dataObj = Object.fromEntries(formData)
+    if (!authToken){
+        navigate('/login')
+    }
     fetch('/bookings', {
       method: 'POST',
       headers: {
@@ -21,6 +25,13 @@ const BookingForm = ({ onchange, setOnchange }) => {
       body: JSON.stringify({ ...dataObj, restaurant_id: id }),
     }).then(res => {
         if (res.ok){
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Booking successfull.',
+                showConfirmButton: false,
+                timer: 1500,
+            })
             setOnchange(!onchange)
             navigate('/reservations')
         }
