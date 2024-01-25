@@ -1,10 +1,18 @@
-import { Navbar, Button } from 'flowbite-react'
-import { useContext } from 'react'
+import { Navbar, Button, ListGroup } from 'flowbite-react'
+import { useContext, useState } from 'react'
 import {NavLink} from 'react-router-dom'
 import { UserContext } from '../context/UserContext'
+import personOutline from '../assets/images/person-circle-outline.svg'
+ 
 
 export default function Nav() {
     const {currentUser, logout} = useContext(UserContext)
+    const [isVisible, setIsVisible] = useState(false)
+
+    function handleClick(){
+        setIsVisible(!isVisible)
+    }
+
   return (
     <Navbar fluid className="max-w-[1280px] px-0 mx-auto">
       <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
@@ -29,13 +37,27 @@ export default function Nav() {
             Reservations
           </NavLink>
           {currentUser ? (
-            <NavLink
-              className={({ isActive }) => (isActive ? 'text-cyan-500' : null)}
-              to="/login">
-              <Button onClick={logout} gradientDuoTone="cyanToBlue" size="xs">
-                Logout
-              </Button>
-            </NavLink>
+            <div className="relative">
+              <button onClick={handleClick}>
+                <img
+                  className="w-8"
+                  src={currentUser.profile_img || personOutline}
+                  alt="icon"
+                />
+              </button>
+              {isVisible && (
+                <ListGroup className="w-24 absolute right-0 z-30">
+                  <ListGroup.Item>
+                    <NavLink to="/profile">
+                      Profile
+                    </NavLink>
+                  </ListGroup.Item>
+                  <ListGroup.Item onClick={logout}>
+                    <NavLink to="/login">Logout</NavLink>
+                  </ListGroup.Item>
+                </ListGroup>
+              )}
+            </div>
           ) : (
             <>
               <NavLink
