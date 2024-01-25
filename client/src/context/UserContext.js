@@ -14,40 +14,40 @@ export default function UserProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null)
 
   const navigate = useNavigate()
-
+//   const apiEndpoint = 'https://opentableweb.onrender.com'
+  const apiEndpoint = 'http://127.0.0.1:5000'
   // add user
   function addUser(username, email, password) {
-    fetch('/users', {
+    fetch(`${apiEndpoint}/users`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ username, email, password }),
     })
-      .then((res) =>{
-        if(res.ok){
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'Your account has been created, login.',
-              showConfirmButton: false,
-              timer: 1500,
-            })
-            navigate('/login')
+      .then((res) => {
+        if (res.ok) {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Your account has been created, login.',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+          navigate('/login')
+        } else if (res.status === 400) {
+          Swal.fire({
+            icon: 'error',
+            text: 'Username or email already exists!',
+          })
         }
-        else if (res.status === 400){
-             Swal.fire({
-               icon: 'error',
-               text: 'Username or email already exists!',
-             })
-        }
-    })
-      .catch(err => console.log(err))
+      })
+      .catch((err) => console.log(err))
   }
 
   // login user
   function login(username, password) {
-    fetch('/login', {
+    fetch(`${apiEndpoint}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -59,20 +59,20 @@ export default function UserProvider({ children }) {
         if (response.access_token) {
           sessionStorage.setItem('authToken', response.access_token)
           setAuthToken(response.access_token)
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Login successful.',
-                showConfirmButton: false,
-                timer: 1500,
-            })
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Login successful.',
+            showConfirmButton: false,
+            timer: 1500,
+          })
           navigate('/')
           setOnchange(!onchange)
         } else {
-            Swal.fire({
-              icon: 'error',
-              text: response.error,
-            })
+          Swal.fire({
+            icon: 'error',
+            text: response.error,
+          })
         }
       })
   }
@@ -88,7 +88,7 @@ export default function UserProvider({ children }) {
   // Get Authenticated user
   useEffect(() => {
     if (authToken) {
-      fetch('/authenticated_user', {
+      fetch(`${apiEndpoint}/authenticated_user`, {
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -114,7 +114,8 @@ export default function UserProvider({ children }) {
     currentUser,
     authToken,
     onchange,
-    setOnchange
+    setOnchange, 
+    apiEndpoint
   }
 
   return (
