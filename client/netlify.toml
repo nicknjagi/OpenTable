@@ -7,5 +7,5 @@
 
 [[redirects]]
   from = "/api/*"
-  to = "http://127.0.0.1:5000/:splat"
+  to = "https://opentableweb.onrender.com/:splat"
   status = 200
