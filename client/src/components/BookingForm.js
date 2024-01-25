@@ -20,8 +20,10 @@ const BookingForm = ({ onchange, setOnchange }) => {
       },
       body: JSON.stringify({ ...dataObj, restaurant_id: id }),
     }).then(res => {
-        setOnchange(!onchange)
-        navigate('/reservations')
+        if (res.ok){
+            setOnchange(!onchange)
+            navigate('/reservations')
+        }
     })
   }
   return (
@@ -31,7 +33,7 @@ const BookingForm = ({ onchange, setOnchange }) => {
         <div className="mb-2 block">
           <Label htmlFor="date" value="Pick a date" />
         </div>
-        <Datepicker name="booking_name" id="date" required />
+        <Datepicker name="booking_date" id="date" required />
       </div>
       <div>
         <div className="mb-2 block">
