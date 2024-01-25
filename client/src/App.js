@@ -13,6 +13,7 @@ import Resetpassword from './pages/Resetpassword'
 import RestaurantsProvider from './context/RestaurantsContext'
 import UserProvider from './context/UserContext'
 import Profile from './pages/Profile'
+import UpdateProfile from './pages/UpdateProfile'
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/restaurants" element={<Restaurants />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/update_profile" element={<UpdateProfile />} />
                 <Route path="/restaurants/:id" element={<RestaurantDetail />} />
                 <Route path="/reservations" element={<ReservationLayout />}>
                   <Route index element={<Reservations />} />
