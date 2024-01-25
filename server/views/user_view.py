@@ -50,7 +50,7 @@ def get_users():
 #fetch single user
 @user_bp.route('/users')
 @jwt_required()
-def get_user(id):
+def get_user():
     current_user_id=get_jwt_identity()
     user= User.query.get(current_user_id)
     if user:
