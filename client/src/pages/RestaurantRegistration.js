@@ -34,7 +34,7 @@ const RestaurantRegistration = () => {
         <div className="mb-2 block">
           <Label htmlFor="phone" value="Phone" />
         </div>
-        <TextInput id="phone" name="phone_no" type="text" required />
+        <TextInput id="phone" name="phone_no" type="number" required />
       </div>
       <div className="max-w-md">
         <div className="mb-2 block">
