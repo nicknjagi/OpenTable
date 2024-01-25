@@ -19,7 +19,7 @@ class User(db.Model, SerializerMixin):
     last_name=db.Column(db.String, nullable=True)
 
      
-    reviews = db.relationship('Review', backref=db.backref('user', lazy=True))
+    reviews = db.relationship('Review', backref=db.backref('user', lazy=True), cascade='all, delete-orphan')
     
 class Restaurant(db.Model, SerializerMixin):
     """Restaurants that the user can review"""
@@ -35,8 +35,8 @@ class Restaurant(db.Model, SerializerMixin):
     capacity = db.Column(db.Integer)
     owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
-    bookings = db.relationship('Booking', backref=db.backref('restaurant', lazy=True))
-    reviews = db.relationship('Review', backref=db.backref('restaurant', lazy=True))
+    bookings = db.relationship('Booking', backref=db.backref('restaurant', lazy=True),cascade='all, delete-orphan')
+    reviews = db.relationship('Review', backref=db.backref('restaurant', lazy=True), cascade='all, delete-orphan')
 
 
 class Booking(db.Model, SerializerMixin):
