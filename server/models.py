@@ -43,7 +43,7 @@ class Booking(db.Model, SerializerMixin):
     """Bookings for tables at a restaurant"""
     __tablename__='bookings'
 
-    serialize_rules = ('-user','-restaurant')
+    serialize_rules = ('-user',)
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id'), nullable=False)
