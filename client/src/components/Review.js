@@ -3,10 +3,11 @@ import trashOutline from '../assets/images/trash-outline.svg'
 import { UserContext } from "../context/UserContext"
 
 const Review = ({review, onchange, setOnchange}) => {
-    const {authToken, currentUser} = useContext(UserContext)
+    const {authToken, currentUser, apiEndpoint} = useContext(UserContext)
+
     
     function handleDelete(id){
-        fetch(`/reviews/${id}`, {
+        fetch(`${apiEndpoint}/reviews/${id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
