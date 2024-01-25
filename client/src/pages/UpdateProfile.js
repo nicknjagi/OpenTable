@@ -7,14 +7,12 @@ export default function UpdateProfile() {
 const { currentUser, setCurrentUser } = useContext(UserContext);
 
 const [user, setUser] = useState({
-  id : currentUser ? currentUser.id : '',
   username: currentUser ? currentUser.username : '',
   email: currentUser ? currentUser.email : '',
   profile_img: currentUser ? currentUser.profile_img : '',
   contact_info: currentUser ? currentUser.contact_info : '',
   first_name: currentUser ? currentUser.first_name : '',
-  last_name: currentUser ? currentUser.last_name : '',
-  password : currentUser ? currentUser.password : ''
+  last_name: currentUser ? currentUser.last_name : ''
 });
 
 const handleSubmit = (event) => {
@@ -24,12 +22,10 @@ const handleSubmit = (event) => {
       id : currentUser.id,
       username: event.target.username.value,
       email: event.target.email.value,
-
       profile_img: event.target.profilepicture.value,
       contact_info: event.target.phone.value,
       first_name: event.target.firstname.value,
-      last_name: event.target.lastname.value,
-      
+      last_name: event.target.lastname.value
     });
   
     fetch(`/users`, {
