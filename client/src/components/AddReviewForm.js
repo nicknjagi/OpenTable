@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { UserContext } from '../context/UserContext'
 
 const AddReviewForm = ({onchange, setOnchange}) => {
-    const { authToken, currentUser } = useContext(UserContext)
+    const { authToken, currentUser, apiEndpoint } = useContext(UserContext)
     const {id} = useParams()
 
     const navigate = useNavigate()
@@ -18,7 +18,7 @@ const AddReviewForm = ({onchange, setOnchange}) => {
         const comment = formData.get('comment')
         const rating = formData.get('rating')
         if(!comment || !rating) return
-        fetch('/reviews',{
+        fetch(`${apiEndpoint}/reviews`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
