@@ -48,9 +48,11 @@ def get_users():
     return jsonify(users),200
 
 #fetch single user
-@user_bp.route('/users/<int:id>')
+@user_bp.route('/users')
+@jwt_required()
 def get_user(id):
-    user= User.query.get(id)
+    current_user_id=get_jwt_identity()
+    user= User.query.get(current_user_id)
     if user:
         return jsonify(user.to_dict()),200
     else:
