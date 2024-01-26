@@ -1,11 +1,11 @@
 import React, { useContext } from "react"
 import trashOutline from '../assets/images/trash-outline.svg'
 import { UserContext } from "../context/UserContext"
+import RatingComponent from "./Rating"
 
 const Review = ({review, onchange, setOnchange}) => {
     const {authToken, currentUser, apiEndpoint} = useContext(UserContext)
 
-    
     function handleDelete(id){
         fetch(`${apiEndpoint}/reviews/${id}`, {
           method: 'DELETE',
@@ -42,8 +42,8 @@ const Review = ({review, onchange, setOnchange}) => {
         {review.comment}
       </p>
       <div className="flex justify-between mt-2">
-        <span>Rating: {" "} 
-          {review.rating}
+        <span> 
+          <RatingComponent rating={review.rating} />
         </span>
         <small className='text-zinc-400'>{review.date_posted}</small>
       </div>
