@@ -3,9 +3,11 @@ import { Button, Datepicker, Label, TextInput } from 'flowbite-react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { UserContext } from '../context/UserContext'
 import Swal from 'sweetalert2'
+import { RestaurantsContext } from '../context/RestaurantsContext'
 
 const BookingForm = ({ onchange, setOnchange }) => {
   const { authToken, apiEndpoint } = useContext(UserContext)
+  const {editRestaurantCapacity, currentRestaurant} = useContext(RestaurantsContext)
   const { id } = useParams()
   const navigate = useNavigate()
 
@@ -13,9 +15,10 @@ const BookingForm = ({ onchange, setOnchange }) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
     const dataObj = Object.fromEntries(formData)
-
+    console.log(dataObj);
     if (!authToken){
         navigate('/login')
+        return
     }
     fetch(`${apiEndpoint}/bookings`, {
       method: 'POST',
@@ -33,10 +36,12 @@ const BookingForm = ({ onchange, setOnchange }) => {
                 showConfirmButton: false,
                 timer: 1500,
             })
+            editRestaurantCapacity({capacity:currentRestaurant.capacity - dataObj.party_size})
             setOnchange(!onchange)
             navigate('/reservations')
         }
     })
+
   }
   return (
     <form onSubmit={handleSubmit} className="flex max-w-lg md:mx-auto flex-col gap-4">

@@ -74,6 +74,20 @@ export default function RestaurantsProvider({children}){
           }
         })
     }
+    function editRestaurantCapacity(capacity){
+        fetch(`${apiEndpoint}/restaurants/${currentRestaurant.id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ ...capacity}),
+        }).then((res) => {
+          if (res.ok) {
+            console.log("success");
+            setOnchange(!onchange)
+          }
+        })
+    }
 
     function deleteRestaurant(){
          fetch(`${apiEndpoint}/restaurants/${currentRestaurant.id}`, {
@@ -103,7 +117,8 @@ export default function RestaurantsProvider({children}){
         editRestaurant,
         currentRestaurant,
         setCurrentRestaurant,
-        deleteRestaurant
+        deleteRestaurant,
+        editRestaurantCapacity
     }
 
     return (

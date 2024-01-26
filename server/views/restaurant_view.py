@@ -98,3 +98,21 @@ def update_restaurant(id):
 
     else:
         return jsonify({"error":"Restaurant does not exist!"}), 404
+
+
+@restaurant_bp.route('/restaurants/<int:id>', methods=['PATCH'])
+def update_capacity(id):
+    restaurant = Restaurant.query.filter_by(id=id).first()
+    if restaurant:
+        data = request.get_json()
+
+        # Retrieve values from data dictionary
+        capacity = data.get('capacity')
+        
+        restaurant.capacity = capacity
+    
+        db.session.commit()
+        return jsonify({"success": "Restaurant updated successfully"}), 200
+
+    else:
+        return jsonify({"error":"Restaurant does not exist!"}), 404
