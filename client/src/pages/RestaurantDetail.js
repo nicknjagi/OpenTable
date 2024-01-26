@@ -92,10 +92,10 @@ const RestaurantDetail = () => {
           </div>
         </div>
         <div>
-          {currentRestaurant.owner_id !== currentUser.id && (
+          {currentRestaurant?.owner_id !== currentUser?.id  && (
             <BookingForm onchange={onchange} setOnchange={setOnchange} />
           )}
-          {currentRestaurant.owner_id === currentUser.id && (
+          {currentRestaurant?.owner_id === currentUser?.id  && (
             <div className="flex gap-4 mt-5">
               <Button gradientDuoTone="cyanToBlue">
                 <Link to="/edit_restaurant">Update</Link>
