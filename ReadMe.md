@@ -5,6 +5,20 @@
  - This is a web application that allows users to make restaurant reservations and promote their own restaurants online.
 
 ## Setup/Installation Requirements
+- Clone this repository using the command: git clone https://github.com/calebmutisya/OpenTable.git
+- Open Terminal and navigate to the cloned folder by typing cd "folder path"
+- Open the Folder with VS Code.
+- There are two folders client & server.
+- To start the server cd into server in terminal and run python3 app.py (this will activate the server)
+- Then open another terminal window and cd into the client folder. Run npm install then npm start.
+- In your package.json file insert proxy as below:
+    "proxy": "server url",
+- All fetch routes in context files should start as below.
+    eg.fetch('/restaurants')
+- The project will be ready to run.
+
+NB: The project database is deployed in render ensure to configure your db in app.py to start with a local sqlite database and run migrations to insert the appropriate tables and relationships.
+
 
 
 ## Features
