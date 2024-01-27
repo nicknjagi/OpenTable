@@ -1,9 +1,20 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Button, Textarea, Label, TextInput } from 'flowbite-react'
 import { RestaurantsContext } from '../context/RestaurantsContext'
+import { useNavigate } from 'react-router-dom'
+import { UserContext } from '../context/UserContext'
 
 const RestaurantRegistration = () => {
     const {addRestaurant} = useContext(RestaurantsContext)
+    const {currentUser} = useContext(UserContext)
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+      if (!currentUser) {
+        navigate('/login')
+      }
+    }, [currentUser, navigate])
 
     function handleSubmit(e) {
         e.preventDefault()
