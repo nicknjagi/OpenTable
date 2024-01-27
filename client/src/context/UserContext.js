@@ -14,7 +14,7 @@ export default function UserProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null)
 
   const navigate = useNavigate()
-  const apiEndpoint = 'https://opentableweb.onrender.com'
+  const apiEndpoint = 'https://opent-table.onrender.com'
 //   const apiEndpoint = 'http://127.0.0.1:5000'
   // add user
   function addUser(username, email, password) {
