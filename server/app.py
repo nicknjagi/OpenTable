@@ -1,3 +1,8 @@
+import os
+
+from dotenv import load_dotenv
+load_dotenv()
+
 from flask import Flask, jsonify, request
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
@@ -7,9 +12,10 @@ from models import db,User,Restaurant,Booking,Review
 from flask_cors import CORS
 from views import *
 from flask_jwt_extended import JWTManager
+import secrets
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://opendb_user:Gmf2oUqWLFhLUxQGFvvrEtnD26D5U475@dpg-cmp6nlen7f5s73dcant0-a.oregon-postgres.render.com/opendb"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DATABASE_URI')
 
 CORS(app)
 
@@ -17,7 +23,7 @@ db.init_app(app)
 migrate = Migrate(app, db)
 
 jwt = JWTManager()
-app.config["JWT_SECRET_KEY"] = "fjhjdjhfiskyfvdgvydklvsrfl"
+app.config["JWT_SECRET_KEY"] = secrets.token_hex(16)
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
 jwt.init_app(app)
 CORS(app)
