@@ -59,7 +59,8 @@ def seed_booking():
 def seed_review():
     reviews = []
     for restaurant in Restaurant.query.all():
-        for _ in range(30):
+        num_reviews = randint(1, 6)
+        for _ in range(num_reviews):
             review = Review(
                 restaurant_id=restaurant.id,
                 user_id=User.query.order_by(func.random()).first().id,
