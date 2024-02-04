@@ -19,7 +19,7 @@ export default function Nav() {
   return (
     <Navbar fluid className="max-w-[1280px] px-0 mx-auto">
       <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-        Open Table
+        meza
       </span>
       <Navbar.Toggle />
       <Navbar.Collapse>
@@ -34,11 +34,11 @@ export default function Nav() {
             to="/restaurants">
             Restaurants
           </NavLink>
-          <NavLink
+          {currentUser && <NavLink
             className={({ isActive }) => (isActive ? 'text-cyan-500' : null)}
             to="/reservations">
             Reservations
-          </NavLink>
+          </NavLink>}
           {currentUser ? (
             <div className="relative">
               <button onClick={handleEnter}>
