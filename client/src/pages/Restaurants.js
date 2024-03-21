@@ -1,11 +1,13 @@
 import React, { useContext } from 'react'
 import RestaurantCard from '../components/RestaurantCard'
 import { RestaurantsContext } from '../context/RestaurantsContext'
+import Loader from '../components/Loader'
 
 const Restaurants = () => {
   const { restaurants, isLoading } = useContext(RestaurantsContext)
   if (isLoading)
-    return <h2 className="text-2xl text-center mt-12">Loading...</h2>
+    return <Loader />
+    
   return (
     <main className="px-6">
       <h1 className="text-2xl md:text-4xl text-center my-12">
