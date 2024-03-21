@@ -10,6 +10,7 @@ import { UserContext } from '../context/UserContext'
 import { RestaurantsContext } from '../context/RestaurantsContext'
 import { Button } from 'flowbite-react'
 import Swal from 'sweetalert2'
+import Loader from '../components/Loader'
 
 const RestaurantDetail = () => {
   const [restaurant, setRestaurant] = useState([])
@@ -56,7 +57,7 @@ const RestaurantDetail = () => {
   }
 
   if (isLoading)
-    return <h2 className="text-2xl text-center mt-12">Loading...</h2>
+    return <Loader />
 
   if (error)
     return <h2 className="text-2xl text-center mt-12">Restaurant not found</h2>
