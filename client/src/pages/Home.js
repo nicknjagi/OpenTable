@@ -6,7 +6,7 @@ import { UserContext } from '../context/UserContext'
 const Home = () => {
     const { currentUser,count, setCount } = useContext(UserContext)
     const [showAlert, setShowAlert] = useState(false)
-    const [remaining, setRemaining] = useState(10)
+    const [remaining, setRemaining] = useState(15)
     const remainingRef = useRef(remaining)
 
     useEffect(()=>{
