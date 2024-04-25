@@ -37,6 +37,7 @@ const RestaurantDetail = () => {
         setRestaurant(data)
         setCurrentRestaurant(data)
         setIsLoading(false)
+        window.scrollTo(0, 0);
       })
   }, [onchange, id, apiEndpoint, setCurrentRestaurant])
 
