@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        overlaydDark:
+        overlayDark:
           'linear-gradient(180deg, rgba(36,52,168,0) 27%, rgba(0,0,0,0.6) 50%)',
       },
     },
