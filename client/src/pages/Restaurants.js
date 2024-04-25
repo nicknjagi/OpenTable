@@ -5,6 +5,10 @@ import Loader from '../components/Loader'
 
 const Restaurants = () => {
   const { restaurants, isLoading } = useContext(RestaurantsContext)
+  useEffect(() => {
+   window.scrollTo(0, 0);
+  },[])
+
   if (isLoading)
     return <Loader />
     
