@@ -12,7 +12,6 @@ export default function UserProvider({ children }) {
       : null
   )
   const [currentUser, setCurrentUser] = useState(null)
-  const [count, setCount] = useState(0)
 
   const navigate = useNavigate()
   const apiEndpoint = 'https://opent-table.onrender.com'
@@ -116,9 +115,7 @@ export default function UserProvider({ children }) {
     authToken,
     onchange,
     setOnchange, 
-    apiEndpoint,
-    count,
-    setCount
+    apiEndpoint
   }
 
   return (
