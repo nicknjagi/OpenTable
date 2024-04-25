@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useEffect,useContext } from 'react'
 import RestaurantCard from '../components/RestaurantCard'
 import { RestaurantsContext } from '../context/RestaurantsContext'
 import Loader from '../components/Loader'
