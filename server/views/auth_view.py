@@ -18,7 +18,16 @@ def login():
     if user:
         if check_password_hash(user.password, password):
             access_token = create_access_token(identity=user.id)
-            return jsonify(access_token = access_token)
+            user_data = {
+            'id': user.id,
+            'username':user.username,
+            'email': user.email,
+            'profile_img':user.profile_img,
+            'contact_info':user.contact_info,
+            'first_name':user.first_name,
+            'last_name':user.last_name
+        }
+            return jsonify(access_token = access_token, user = user_data)
         
         return jsonify({"error": "Wrong Password!"}), 401
 
