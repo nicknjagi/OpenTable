@@ -1,8 +1,8 @@
 """Initial migration
 
-Revision ID: 2af320dc278f
+Revision ID: 2b608ca7eff3
 Revises: 
-Create Date: 2024-01-25 17:11:39.939033
+Create Date: 2024-12-04 19:45:03.342125
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '2af320dc278f'
+revision = '2b608ca7eff3'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -46,7 +46,7 @@ def upgrade():
     sa.Column('location', sa.String(length=255), nullable=True),
     sa.Column('capacity', sa.Integer(), nullable=True),
     sa.Column('owner_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('bookings',
@@ -57,8 +57,8 @@ def upgrade():
     sa.Column('booking_time', sa.Time(), nullable=False),
     sa.Column('party_size', sa.Integer(), nullable=False),
     sa.Column('status', sa.String(length=20), nullable=False),
-    sa.ForeignKeyConstraint(['restaurant_id'], ['restaurants.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['restaurant_id'], ['restaurants.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('reviews',
@@ -68,8 +68,8 @@ def upgrade():
     sa.Column('rating', sa.Integer(), nullable=False),
     sa.Column('comment', sa.Text(), nullable=True),
     sa.Column('date_posted', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['restaurant_id'], ['restaurants.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['restaurant_id'], ['restaurants.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
