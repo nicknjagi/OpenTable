@@ -15,7 +15,7 @@ from flask_jwt_extended import JWTManager
 import secrets
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DATABASE_URI')
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 
 CORS(app)
 
@@ -42,7 +42,10 @@ def token_in_blocklist_callback(jwt_header, jwt_data):
         return token 
     else:
         return None
-
+    
+@app.route('/')
+def index():
+    return "OpenTable API"
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=5000, debug=False)
