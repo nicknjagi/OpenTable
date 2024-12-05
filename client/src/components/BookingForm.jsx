@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Button, Datepicker, Label, TextInput } from 'flowbite-react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router'
 import { UserContext } from '../context/UserContext'
 import Swal from 'sweetalert2'
 import { RestaurantsContext } from '../context/RestaurantsContext'

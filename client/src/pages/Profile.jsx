@@ -1,5 +1,5 @@
 import React, { useContext, useEffect} from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router'
 import { UserContext } from '../context/UserContext'
 import Swal from 'sweetalert2'
 import { Button } from 'flowbite-react'

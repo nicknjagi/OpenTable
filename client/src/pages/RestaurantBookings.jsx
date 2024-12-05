@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../context/UserContext'
 import Booking from '../components/Booking'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 
 const RestaurantBookings = () => {
     const [restaurants, setRestaurants] = useState({})

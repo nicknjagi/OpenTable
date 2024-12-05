@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Button, Label, TextInput } from 'flowbite-react'
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router'
 import { UserContext } from '../context/UserContext'
 
 const Login = () => {

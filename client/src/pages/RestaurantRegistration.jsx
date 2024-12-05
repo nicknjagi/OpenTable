@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { Button, Textarea, Label, TextInput } from 'flowbite-react'
 import { RestaurantsContext } from '../context/RestaurantsContext'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import { UserContext } from '../context/UserContext'
 
 const RestaurantRegistration = () => {

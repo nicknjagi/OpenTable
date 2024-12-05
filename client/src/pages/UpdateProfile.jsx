@@ -2,7 +2,7 @@ import {React, useContext} from 'react'
 import { Button, Label, TextInput } from 'flowbite-react'
 import { UserContext } from '../context/UserContext';
 import Swal from "sweetalert2"
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 export default function UpdateProfile() {
 const { currentUser, authToken, setOnchange, onchange, apiEndpoint } = useContext(UserContext);

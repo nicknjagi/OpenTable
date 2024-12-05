@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Button, Textarea, Label, TextInput } from 'flowbite-react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router'
 import { UserContext } from '../context/UserContext'
 
 const AddReviewForm = ({onchange, setOnchange}) => {

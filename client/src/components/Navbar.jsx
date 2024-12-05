@@ -1,6 +1,6 @@
 import { Navbar, Button, ListGroup } from 'flowbite-react'
 import { useContext, useState } from 'react'
-import {NavLink} from 'react-router-dom'
+import {NavLink} from 'react-router'
 import { UserContext } from '../context/UserContext'
 import personOutline from '../assets/images/person-circle-outline.svg'
  
