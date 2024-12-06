@@ -40,7 +40,7 @@ The application works perfectly well, no bugs.
 ## Technologies Used
  - HTML, CSS, flowbite, TAILWIND AND Bootstrap.
  - React, Javascript
- - Flask,Python & Postgresql
+ - Flask,Python & sqlite
 
 ## Support and contact details
  - mutisyacalebmusau@gmail.com
