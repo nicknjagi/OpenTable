@@ -43,6 +43,7 @@ def add_users():
 
 #fetch all users
 @user_bp.route("/users", methods=["GET"])
+@jwt_required()
 def get_users():
     users=[user.to_dict() for user in db.session.query(User).all()]
     return jsonify(users),200
