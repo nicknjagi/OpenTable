@@ -19,7 +19,7 @@ export default function Nav() {
   return (
     <Navbar fluid className="max-w-[1280px] px-0 mx-auto">
       <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-        OpenTable
+        meza
       </span>
       <Navbar.Toggle />
       <Navbar.Collapse>
