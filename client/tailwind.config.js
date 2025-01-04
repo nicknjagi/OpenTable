@@ -16,6 +16,6 @@ module.exports = {
       },
     },
   },
-  plugins: [flowbite.plugin(),],
+  plugins: [flowbite.plugin(),require('tailwindcss-motion')],
 }
 
