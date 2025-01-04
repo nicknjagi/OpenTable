@@ -2,6 +2,7 @@ import React from 'react'
 import { Outlet } from 'react-router'
 import Nav from '../components/Navbar'
 import Foot from '../components/Footer'
+import ProjectInfoModal from '../components/modals/ProjectInfoModal'
 
 const Layout = () => {
   return (
@@ -16,6 +17,7 @@ const Layout = () => {
       <div className="w-full py-4 mb-auto bg-white px-2 border-t border-t-zinc-300 absolute -bottom-0">
         <Foot />
       </div>
+      <ProjectInfoModal />
       </div>
   )
 }
